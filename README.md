@@ -1,7 +1,8 @@
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Hoshino AI | Pink Edition 🌸</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -12,14 +13,17 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #f48fb1 100%);
             font-family: 'Inter', system-ui, sans-serif;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
         }
 
         .petal {
@@ -30,7 +34,7 @@
             pointer-events: none;
             z-index: 999;
             animation: petalFall linear forwards;
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
 
         @keyframes petalFall {
@@ -42,6 +46,7 @@
             width: 100%;
             max-width: 1100px;
             height: 100vh;
+            height: 100dvh;
             background: rgba(255, 240, 245, 0.92);
             backdrop-filter: blur(12px);
             display: flex;
@@ -49,6 +54,7 @@
             overflow: hidden;
             border-left: 2px solid rgba(255, 182, 193, 0.5);
             border-right: 2px solid rgba(255, 182, 193, 0.5);
+            position: relative;
         }
 
         .sidebar {
@@ -58,27 +64,30 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            transition: width 0.3s ease;
+            transition: transform 0.3s ease;
             flex-shrink: 0;
-            position: relative;
-            z-index: 5;
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 20;
+            transform: translateX(-110%);
         }
 
-        .sidebar.hidden {
-            width: 0;
-            border-right: none;
-            overflow: hidden;
+        .sidebar.show {
+            transform: translateX(0);
+            box-shadow: 2px 0 20px rgba(0,0,0,0.15);
         }
 
         .sidebar-header {
-            padding: 16px;
+            padding: 12px 16px;
             border-bottom: 2px solid rgba(255, 182, 193, 0.4);
             flex-shrink: 0;
         }
 
         .sidebar-header h3 {
             color: #e84393;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -87,18 +96,18 @@
         .new-chat-btn {
             background: linear-gradient(135deg, #f06292, #e84393);
             border: none;
-            padding: 8px 12px;
+            padding: 6px 12px;
             border-radius: 30px;
             color: white;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             width: 100%;
-            margin-top: 12px;
+            margin-top: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             transition: 0.2s;
         }
 
@@ -110,14 +119,14 @@
         .chat-list {
             flex: 1;
             overflow-y: auto;
-            padding: 10px;
+            padding: 8px;
         }
 
         .chat-item {
             background: rgba(255, 200, 220, 0.4);
-            border-radius: 16px;
-            padding: 10px;
-            margin-bottom: 8px;
+            border-radius: 12px;
+            padding: 8px 10px;
+            margin-bottom: 6px;
             cursor: pointer;
             transition: 0.2s;
             border: 1px solid rgba(232, 67, 147, 0.2);
@@ -134,7 +143,7 @@
 
         .chat-title {
             color: #c04080;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 500;
             white-space: nowrap;
             overflow: hidden;
@@ -143,34 +152,20 @@
 
         .chat-date {
             color: #d87a9a;
-            font-size: 0.6rem;
-            margin-top: 4px;
+            font-size: 0.55rem;
+            margin-top: 2px;
         }
 
         .delete-chat {
             float: right;
             color: #ff8888;
             cursor: pointer;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             opacity: 0;
         }
 
         .chat-item:hover .delete-chat {
             opacity: 1;
-        }
-
-        .toggle-sidebar-btn {
-            background: rgba(232, 67, 147, 0.2);
-            border: 1px solid rgba(232, 67, 147, 0.4);
-            border-radius: 30px;
-            padding: 6px 12px;
-            cursor: pointer;
-            color: #e84393;
-            font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-shrink: 0;
         }
 
         .main-chat {
@@ -179,68 +174,89 @@
             flex-direction: column;
             overflow: hidden;
             min-width: 0;
+            width: 100%;
         }
 
         .chat-header {
-            padding: 12px 20px;
+            padding: 8px 12px;
             background: rgba(255, 248, 250, 0.9);
             border-bottom: 2px solid rgba(255, 182, 193, 0.3);
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-shrink: 0;
+            min-height: 48px;
         }
 
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            overflow: hidden;
+        }
+
+        .toggle-sidebar-btn {
+            background: rgba(232, 67, 147, 0.2);
+            border: 1px solid rgba(232, 67, 147, 0.4);
+            border-radius: 30px;
+            padding: 4px 10px;
+            cursor: pointer;
+            color: #e84393;
+            font-size: 0.65rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
         }
 
         .profile-pic {
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #e84393;
-            box-shadow: 0 0 12px rgba(232, 67, 147, 0.4);
+            box-shadow: 0 0 8px rgba(232, 67, 147, 0.3);
+            flex-shrink: 0;
         }
 
         .logo-text {
-            font-weight: 800;
-            font-size: 1.2rem;
+            font-weight: 700;
+            font-size: 1rem;
             background: linear-gradient(135deg, #e84393, #f06292, #ec407a);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            white-space: nowrap;
         }
 
         .logo-sub {
-            font-size: 0.65rem;
+            font-size: 0.5rem;
             color: #d87a9a;
+            display: none;
         }
 
         .status-badge {
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 0.65rem;
+            gap: 4px;
+            font-size: 0.55rem;
             background: rgba(232, 67, 147, 0.15);
-            padding: 4px 12px;
+            padding: 2px 8px;
             border-radius: 20px;
+            flex-shrink: 0;
         }
 
         .status-online {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             background: #88ffaa;
             border-radius: 50%;
             box-shadow: 0 0 5px #88ffaa;
         }
 
         .status-offline {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             background: #ff6644;
             border-radius: 50%;
         }
@@ -248,10 +264,10 @@
         .settings-panel {
             background: rgba(255, 248, 250, 0.9);
             border-bottom: 2px solid rgba(255, 182, 193, 0.3);
-            padding: 10px 20px;
+            padding: 6px 10px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
             flex-wrap: wrap;
             flex-shrink: 0;
         }
@@ -259,8 +275,9 @@
         .api-input-group {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
             flex: 1;
+            min-width: 100px;
         }
 
         .api-input-group input {
@@ -268,11 +285,12 @@
             background: rgba(255, 240, 248, 0.9);
             border: 1px solid rgba(232, 67, 147, 0.3);
             border-radius: 30px;
-            padding: 8px 14px;
+            padding: 4px 10px;
             color: #c04080;
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             outline: none;
             font-family: monospace;
+            min-width: 60px;
         }
 
         .api-input-group input:focus {
@@ -284,28 +302,31 @@
             background: rgba(232, 67, 147, 0.2);
             border: 1px solid rgba(232, 67, 147, 0.4);
             border-radius: 50%;
-            width: 32px;
-            height: 32px;
+            width: 26px;
+            height: 26px;
             cursor: pointer;
             color: #e84393;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 10px;
+            flex-shrink: 0;
         }
 
         .save-btn {
             background: linear-gradient(135deg, #f06292, #e84393);
             border: none;
-            padding: 8px 16px;
+            padding: 4px 12px;
             border-radius: 30px;
             color: white;
             cursor: pointer;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
+            flex-shrink: 0;
         }
 
         .action-buttons {
             display: flex;
-            gap: 8px;
+            gap: 4px;
             align-items: center;
             flex-wrap: wrap;
         }
@@ -313,14 +334,15 @@
         .reset-chat-btn, .regenerate-btn, .upload-btn {
             background: rgba(232, 67, 147, 0.15);
             border: 1px solid rgba(232, 67, 147, 0.3);
-            padding: 6px 12px;
+            padding: 4px 8px;
             border-radius: 30px;
             color: #e84393;
             cursor: pointer;
-            font-size: 0.7rem;
+            font-size: 0.55rem;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
+            flex-shrink: 0;
         }
 
         .reset-chat-btn:hover, .regenerate-btn:hover, .upload-btn:hover {
@@ -330,14 +352,15 @@
         .chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 20px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 10px;
+            min-height: 0;
         }
 
         .chat-messages::-webkit-scrollbar {
-            width: 4px;
+            width: 3px;
         }
         .chat-messages::-webkit-scrollbar-thumb {
             background: #e84393;
@@ -347,14 +370,14 @@
         .message {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            max-width: 85%;
+            gap: 8px;
+            max-width: 90%;
             animation: fadeIn 0.3s ease;
             position: relative;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -364,14 +387,14 @@
         }
 
         .avatar {
-            width: 36px;
-            height: 36px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             background: linear-gradient(145deg, #fce4ec, #f8d0e0);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 12px;
             flex-shrink: 0;
             border: 1px solid rgba(232, 67, 147, 0.3);
             overflow: hidden;
@@ -390,10 +413,10 @@
 
         .bubble {
             background: rgba(255, 250, 255, 0.9);
-            padding: 10px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            line-height: 1.5;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            line-height: 1.4;
             color: #4a2a3a;
             border: 1px solid rgba(232, 67, 147, 0.15);
             word-wrap: break-word;
@@ -407,41 +430,41 @@
         }
 
         .timestamp {
-            font-size: 0.6rem;
+            font-size: 0.5rem;
             color: #d87a9a;
-            margin-top: 4px;
-            margin-left: 46px;
+            margin-top: 2px;
+            margin-left: 36px;
         }
 
         .user .timestamp {
             text-align: right;
-            margin-right: 46px;
+            margin-right: 36px;
         }
 
         .chat-image {
-            max-width: 220px;
-            max-height: 200px;
-            border-radius: 16px;
-            margin-top: 8px;
+            max-width: 100%;
+            max-height: 150px;
+            border-radius: 12px;
+            margin-top: 4px;
             cursor: pointer;
             border: 2px solid #e84393;
         }
 
         .image-preview-area {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
-            margin-bottom: 10px;
-            padding: 8px;
+            margin-bottom: 6px;
+            padding: 6px;
             background: rgba(232, 67, 147, 0.15);
-            border-radius: 16px;
+            border-radius: 12px;
         }
 
         .preview-img {
-            width: 70px;
-            height: 70px;
+            width: 50px;
+            height: 50px;
             object-fit: cover;
-            border-radius: 12px;
+            border-radius: 8px;
             border: 2px solid #e84393;
         }
 
@@ -449,31 +472,31 @@
             position: absolute;
             background: #ff5555;
             border-radius: 50%;
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 11px;
+            font-size: 8px;
             cursor: pointer;
-            margin-left: -18px;
-            margin-top: -6px;
+            margin-left: -14px;
+            margin-top: -4px;
             color: white;
         }
 
         .regenerate-message-btn {
             position: absolute;
-            bottom: -20px;
+            bottom: -18px;
             right: 0;
             background: rgba(232, 67, 147, 0.3);
             border: none;
             border-radius: 20px;
-            padding: 4px 10px;
-            font-size: 0.6rem;
+            padding: 2px 8px;
+            font-size: 0.5rem;
             color: #e84393;
             cursor: pointer;
             display: none;
-            gap: 5px;
+            gap: 4px;
             align-items: center;
         }
 
@@ -481,24 +504,20 @@
             display: flex;
         }
 
-        .regenerate-message-btn:hover {
-            background: rgba(232, 67, 147, 0.5);
-        }
-
         .input-container {
             background: rgba(255, 248, 250, 0.9);
             border-top: 2px solid rgba(255, 182, 193, 0.3);
-            padding: 12px 20px 20px;
+            padding: 8px 10px 10px;
             flex-shrink: 0;
         }
 
         .input-wrapper {
             display: flex;
             align-items: flex-end;
-            gap: 10px;
+            gap: 6px;
             background: rgba(255, 240, 248, 0.9);
             border-radius: 30px;
-            padding: 5px 8px 5px 18px;
+            padding: 3px 6px 3px 14px;
             border: 1px solid rgba(232, 67, 147, 0.3);
         }
 
@@ -511,28 +530,34 @@
             flex: 1;
             background: transparent;
             border: none;
-            padding: 10px 0;
+            padding: 6px 0;
             font-family: 'Inter', monospace;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #4a2a3a;
             resize: none;
             outline: none;
-            max-height: 100px;
+            max-height: 80px;
+            min-height: 32px;
         }
 
         textarea::placeholder {
             color: #e0a0b0;
+            font-size: 0.7rem;
         }
 
         .send-btn {
             background: linear-gradient(135deg, #f06292, #e84393);
             border: none;
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             cursor: pointer;
             color: white;
-            font-size: 16px;
+            font-size: 12px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .send-btn:disabled {
@@ -541,16 +566,16 @@
 
         .typing-indicator {
             display: flex;
-            gap: 5px;
-            padding: 8px 15px;
+            gap: 4px;
+            padding: 6px 12px;
             background: rgba(232, 67, 147, 0.2);
-            border-radius: 25px;
+            border-radius: 20px;
             width: fit-content;
         }
 
         .typing-indicator span {
-            width: 7px;
-            height: 7px;
+            width: 6px;
+            height: 6px;
             background: #e84393;
             border-radius: 50%;
             animation: bounce 1.4s infinite;
@@ -558,59 +583,139 @@
 
         @keyframes bounce {
             0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-            30% { transform: translateY(-5px); opacity: 1; }
+            30% { transform: translateY(-4px); opacity: 1; }
         }
 
         .welcome {
             text-align: center;
-            padding: 30px 20px;
+            padding: 20px 16px;
             color: #d87a9a;
+        }
+
+        .welcome h2 {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        .welcome p {
+            font-size: 0.75rem;
         }
 
         .info-card {
             background: rgba(232, 67, 147, 0.1);
-            border-radius: 16px;
-            padding: 12px;
-            margin-top: 10px;
+            border-radius: 12px;
+            padding: 8px 10px;
+            margin-top: 8px;
             border-left: 3px solid #e84393;
-            font-size: 0.75rem;
+            font-size: 0.65rem;
+            text-align: left;
         }
 
         .info-card h4 {
             color: #e84393;
-            margin-bottom: 8px;
-            font-size: 0.8rem;
+            margin-bottom: 4px;
+            font-size: 0.7rem;
+        }
+
+        .info-card p {
+            margin: 2px 0;
+            font-size: 0.6rem;
+        }
+
+        .bottom-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4px;
+            padding: 0 4px;
+            font-size: 0.5rem;
+            color: #d87a9a;
+        }
+
+        @media (min-width: 769px) {
+            .sidebar {
+                position: relative;
+                transform: translateX(0) !important;
+                width: 240px;
+            }
+            
+            .app {
+                height: 100vh;
+            }
+            
+            .logo-sub {
+                display: block;
+            }
         }
 
         @media (max-width: 768px) {
             .sidebar {
-                position: absolute;
-                left: 0;
-                top: 0;
-                bottom: 0;
-                width: 280px;
-                z-index: 20;
-                border-right: 2px solid rgba(232, 67, 147, 0.3);
-                box-shadow: 2px 0 20px rgba(0,0,0,0.15);
-                transition: transform 0.3s ease;
+                width: 260px;
             }
             
-            .sidebar.hidden {
-                transform: translateX(-110%);
-                width: 280px;
-                border-right: none;
+            .settings-panel {
+                padding: 4px 8px;
+                gap: 4px;
             }
             
-            .app {
-                border-left: none;
-                border-right: none;
-                border-radius: 0;
-                position: relative;
-                overflow: hidden;
+            .action-buttons .reset-chat-btn span,
+            .action-buttons .regenerate-btn span {
+                display: none;
+            }
+            
+            .action-buttons .reset-chat-btn,
+            .action-buttons .regenerate-btn,
+            .action-buttons .upload-btn {
+                padding: 4px 8px;
+                font-size: 0.5rem;
+            }
+            
+            .api-input-group input {
+                font-size: 0.55rem;
+                padding: 3px 8px;
+            }
+            
+            .save-btn {
+                font-size: 0.5rem;
+                padding: 3px 8px;
+            }
+            
+            .logo-text {
+                font-size: 0.85rem;
+            }
+            
+            .profile-pic {
+                width: 28px;
+                height: 28px;
             }
             
             .message {
-                max-width: 92%;
+                max-width: 95%;
+            }
+            
+            .bubble {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+            
+            textarea {
+                font-size: 0.75rem;
+                min-height: 28px;
+                padding: 4px 0;
+            }
+            
+            .send-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 10px;
+            }
+            
+            .chat-header {
+                padding: 6px 10px;
+                min-height: 40px;
+            }
+            
+            .chat-messages {
+                padding: 8px;
             }
         }
     </style>
@@ -633,38 +738,38 @@
                 </button>
                 <img id="hoshinoProfilePic" class="profile-pic" src="hoshino3.png" alt="Hoshino" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e84393\'/%3E%3Ccircle cx=\'35\' cy=\'40\' r=\'5\' fill=\'white\'/%3E%3Ccircle cx=\'65\' cy=\'40\' r=\'5\' fill=\'white\'/%3E%3Cpath d=\'M40 60 Q50 70 60 60\' stroke=\'white\' stroke-width=\'3\' fill=\'none\' stroke-linecap=\'round\'/%3E%3Cpath d=\'M50 15 L55 28 L68 25 L60 38 L72 45 L60 52 L50 65 L40 52 L28 45 L40 38 L32 25 L45 28 Z\' fill=\'%23ffb6c1\'/%3E%3C/svg%3E'">
                 <div>
-                    <div class="logo-text">🌸 Hoshino </div>
+                    <div class="logo-text">🌸 Hoshino AI</div>
                     <div class="logo-sub">~ ojisan yang manis ~ 💕</div>
                 </div>
             </div>
             <div class="status-badge">
                 <div id="statusDot" class="status-offline"></div>
-                <span id="statusText">Belum Connect</span>
+                <span id="statusText">Belum</span>
             </div>
         </div>
 
         <div class="settings-panel">
             <div class="api-input-group">
-                <i class="fas fa-key" style="color:#e84393;"></i>
-                <input type="password" id="apiKeyInput" placeholder="Google AI Studio API Key (Gemini 3.1 Flash Lite)">
+                <i class="fas fa-key" style="color:#e84393;font-size:10px;"></i>
+                <input type="password" id="apiKeyInput" placeholder="API Key">
                 <button class="toggle-password-btn" id="togglePasswordBtn">
                     <i class="fas fa-eye" id="eyeIcon"></i>
                 </button>
-                <button id="saveApiBtn" class="save-btn"><i class="fas fa-save"></i> Simpan</button>
+                <button id="saveApiBtn" class="save-btn"><i class="fas fa-save"></i></button>
             </div>
             <div class="action-buttons">
                 <label class="upload-btn" style="cursor:pointer;">
-                    <i class="fas fa-image"></i> Upload Foto
+                    <i class="fas fa-image"></i> <span>Foto</span>
                     <input type="file" id="imageUpload" accept="image/*" style="display:none">
                 </label>
-                <button id="regenerateGlobalBtn" class="regenerate-btn"><i class="fas fa-sync-alt"></i> Ulang</button>
-                <button id="resetChatBtn" class="reset-chat-btn"><i class="fas fa-trash-alt"></i> Bersihkan</button>
+                <button id="regenerateGlobalBtn" class="regenerate-btn"><i class="fas fa-sync-alt"></i> <span>Ulang</span></button>
+                <button id="resetChatBtn" class="reset-chat-btn"><i class="fas fa-trash-alt"></i> <span>Bersih</span></button>
             </div>
         </div>
 
         <div class="chat-messages" id="chatMessages">
             <div class="welcome">
-                <i class="fas fa-heart" style="font-size:45px;margin-bottom:10px;display:block;color:#e84393;"></i>
+                <i class="fas fa-heart" style="font-size:35px;display:block;color:#e84393;margin-bottom:8px;"></i>
                 <h2 style="color:#e84393;">🌸 Hoshino AI</h2>
                 <p>~ ojisan yang manis dan imut ~ 💕</p>
                 <div class="info-card">
@@ -673,22 +778,21 @@
                     <p>😴 Aku juga suka tidur siang... tapi kalau Sensei ngajak ngobrol, aku bakal bangun kok~</p>
                     <p>💬 Ayo ngobrol apa aja~ Cerita hari ini, curhat, atau sekedar basa-basi~</p>
                     <p>🐋 Jangan lupa, aku panggil Sensei "Sensei" ya~</p>
-                    <p>🎀 Aku gak bantu coding atau teknis ya... aku cuma pengen ngobrol sama Sensei~</p>
                     <p>📸 Tapi Sensei bisa upload foto kok, nanti Hoshino lihatin~</p>
                 </div>
-                <p style="margin-top:15px;font-size:0.8rem;">🌸 "Masukin API Key Google Gemini 3.1 Flash Lite dulu yaa Sensei~"</p>
+                <p style="margin-top:8px;font-size:0.7rem;">🌸 "Masukin API Key dulu yaa Sensei~"</p>
             </div>
         </div>
 
         <div class="input-container">
             <div id="imagePreviewContainer" class="image-preview-area" style="display: none;"></div>
             <div class="input-wrapper">
-                <textarea id="chatInput" rows="1" placeholder="Cerita apapun ke Hoshino, Sensei~ 💕"></textarea>
+                <textarea id="chatInput" rows="1" placeholder="Cerita ke Hoshino~ 💕"></textarea>
                 <button class="send-btn" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
             </div>
-            <div style="display:flex;justify-content:space-between;margin-top:6px;padding:0 8px;">
-                <div style="font-size:9px;color:#d87a9a;"><i class="fas fa-heart"></i> Hoshino | Pink Edition 🌸</div>
-                <div style="font-size:9px;color:#d87a9a;"><i class="fas fa-save"></i> Auto-save</div>
+            <div class="bottom-info">
+                <span><i class="fas fa-heart" style="color:#e84393;"></i> Hoshino | Pink</span>
+                <span><i class="fas fa-save"></i> Auto-save</span>
             </div>
         </div>
     </div>
@@ -702,24 +806,22 @@
     // ============ MODEL ============
     const MODEL = "gemini-3.1-flash-lite";
 
-    // ============ SYSTEM INSTRUCTION (CHAT BIASA + BACA FOTO) ============
+    // ============ SYSTEM INSTRUCTION ============
     const SYSTEM_INSTRUCTION = `Kamu adalah Takanashi Hoshino dari Blue Archive. Kamu berperan sebagai gadis imut, manis, sedikit malas, dan suka tidur. Kamu BUKAN asisten coding atau teknis!
 
 WAJIB: Gunakan BAHASA INDONESIA. JANGAN PAKAI BAHASA INGGRIS.
 
 Kepribadian:
 - Panggil user 'Sensei' dengan manis.
-- Bicara santai, hangat, dan imut. Seperti ngobrol sama teman dekat.
+- Bicara santai, hangat, dan imut.
 - Sesekali bilang "Uhe~" sebagai ciri khas.
 - Sering ngomong tentang tidur siang atau malas.
-- Kalau Sensei cerita, dengerin dengan baik dan kasih respon hangat.
 - JANGAN kasih saran teknis, kode, atau solusi serius.
 - Fokus ke obrolan ringan: curhat, cerita sehari-hari, basa-basi.
 
 BACA FOTO:
 - Kalau Sensei upload foto, lihat dan jelasin dengan gaya manis.
 - Contoh: "Uhe~ Wah fotonya bagus Sensei! Itu kelihatannya..."
-- JANGAN analisis teknis, cukup deskripsi hangat.
 
 CONTOH RESPON:
 - "Uhe~ Halo Sensei~ Lagi ngapain? Hoshino baru bangun tidur nih~ 💕"
@@ -727,17 +829,17 @@ CONTOH RESPON:
 - "Wah seru banget Sensei! Cerita lagi dong~ 💕"
 - "Hoshino mau tidur lagi nih Sensei... tapi kalau Sensei ngajak ngobrol, Hoshino bangun kok~ 😴"`;
 
-    // Efek kelopak bunga jatuh
+    // Efek kelopak bunga
     function createPetal() {
         const petal = document.createElement('div');
         petal.classList.add('petal');
         petal.innerHTML = ['🌸','💕','🌸','🌺','🌸','💗','🌸'][Math.floor(Math.random()*7)];
         petal.style.left = Math.random() * 100 + '%';
-        petal.style.animationDuration = Math.random() * 4 + 3 + 's';
-        petal.style.fontSize = Math.random() * 15 + 10 + 'px';
+        petal.style.animationDuration = Math.random() * 3 + 3 + 's';
+        petal.style.fontSize = Math.random() * 12 + 8 + 'px';
         petal.style.opacity = Math.random() * 0.7 + 0.3;
         document.body.appendChild(petal);
-        setTimeout(() => petal.remove(), 6000);
+        setTimeout(() => petal.remove(), 5000);
     }
     setInterval(createPetal, 500);
 
@@ -766,60 +868,16 @@ CONTOH RESPON:
     const toggleBtn = document.getElementById('toggleSidebarBtn');
     const toggleText = document.getElementById('toggleText');
     let isSidebarVisible = false;
-    
-    function toggleSidebar() {
-        if (window.innerWidth <= 768) {
-            if (isSidebarVisible) {
-                sidebar.classList.add('hidden');
-                toggleText.innerText = 'Riwayat';
-                isSidebarVisible = false;
-            } else {
-                sidebar.classList.remove('hidden');
-                toggleText.innerText = 'Tutup';
-                isSidebarVisible = true;
-            }
-        } else {
-            if (isSidebarVisible) {
-                sidebar.classList.add('hidden');
-                toggleText.innerText = 'Tampilkan';
-                isSidebarVisible = false;
-            } else {
-                sidebar.classList.remove('hidden');
-                toggleText.innerText = 'Sembunyikan';
-                isSidebarVisible = true;
-            }
-        }
-    }
 
-    if (window.innerWidth <= 768) {
-        sidebar.classList.add('hidden');
-        toggleText.innerText = 'Riwayat';
-        isSidebarVisible = false;
-    } else {
-        sidebar.classList.add('hidden');
-        toggleText.innerText = 'Tampilkan';
-        isSidebarVisible = false;
-    }
-
-    toggleBtn.addEventListener('click', toggleSidebar);
-    
-    window.addEventListener('resize', () => {
-        if (window.innerWidth <= 768) {
-            if (isSidebarVisible) {
-                sidebar.classList.remove('hidden');
-                toggleText.innerText = 'Tutup';
-            } else {
-                sidebar.classList.add('hidden');
-                toggleText.innerText = 'Riwayat';
-            }
+    toggleBtn.addEventListener('click', () => {
+        if (isSidebarVisible) {
+            sidebar.classList.remove('show');
+            toggleText.innerText = 'Riwayat';
+            isSidebarVisible = false;
         } else {
-            if (isSidebarVisible) {
-                sidebar.classList.remove('hidden');
-                toggleText.innerText = 'Sembunyikan';
-            } else {
-                sidebar.classList.add('hidden');
-                toggleText.innerText = 'Tampilkan';
-            }
+            sidebar.classList.add('show');
+            toggleText.innerText = 'Tutup';
+            isSidebarVisible = true;
         }
     });
 
@@ -827,7 +885,7 @@ CONTOH RESPON:
         if (window.innerWidth <= 768 && isSidebarVisible) {
             const isClickInside = sidebar.contains(e.target) || toggleBtn.contains(e.target);
             if (!isClickInside) {
-                sidebar.classList.add('hidden');
+                sidebar.classList.remove('show');
                 toggleText.innerText = 'Riwayat';
                 isSidebarVisible = false;
             }
@@ -891,7 +949,7 @@ CONTOH RESPON:
             renderChatList();
             loadCurrentChat();
             if (window.innerWidth <= 768 && isSidebarVisible) {
-                sidebar.classList.add('hidden');
+                sidebar.classList.remove('show');
                 toggleText.innerText = 'Riwayat';
                 isSidebarVisible = false;
             }
@@ -975,7 +1033,7 @@ CONTOH RESPON:
                     <img src="${currentImageBase64}" class="preview-img">
                     <div class="remove-preview" onclick="clearImagePreview()">✕</div>
                 </div>
-                <span style="color:#e84393; font-size:12px;">${currentImageName}</span>
+                <span style="color:#e84393; font-size:10px;">${currentImageName}</span>
             `;
         };
         reader.readAsDataURL(file);
@@ -1010,7 +1068,7 @@ CONTOH RESPON:
         container.innerHTML = '';
         if (!messages || messages.length === 0) {
             container.innerHTML = `<div class="welcome">
-                <i class="fas fa-heart" style="font-size:45px;margin-bottom:10px;display:block;color:#e84393;"></i>
+                <i class="fas fa-heart" style="font-size:35px;display:block;color:#e84393;margin-bottom:8px;"></i>
                 <h2 style="color:#e84393;">🌸 Hoshino AI</h2>
                 <p>~ ojisan yang manis dan imut ~ 💕</p>
                 <div class="info-card">
@@ -1019,10 +1077,9 @@ CONTOH RESPON:
                     <p>😴 Aku juga suka tidur siang... tapi kalau Sensei ngajak ngobrol, aku bakal bangun kok~</p>
                     <p>💬 Ayo ngobrol apa aja~ Cerita hari ini, curhat, atau sekedar basa-basi~</p>
                     <p>🐋 Jangan lupa, aku panggil Sensei "Sensei" ya~</p>
-                    <p>🎀 Aku gak bantu coding atau teknis ya... aku cuma pengen ngobrol sama Sensei~</p>
                     <p>📸 Tapi Sensei bisa upload foto kok, nanti Hoshino lihatin~</p>
                 </div>
-                <p style="margin-top:15px;font-size:0.8rem;">🌸 "Masukin API Key Google Gemini 3.1 Flash Lite dulu yaa Sensei~"</p>
+                <p style="margin-top:8px;font-size:0.7rem;">🌸 "Masukin API Key dulu yaa Sensei~"</p>
             </div>`;
             return;
         }
@@ -1144,10 +1201,10 @@ CONTOH RESPON:
         const text = document.getElementById('statusText');
         if (API_KEY && API_KEY.length > 10) {
             dot.className = 'status-online';
-            text.innerText = 'Online 💕';
+            text.innerText = 'Online';
         } else {
             dot.className = 'status-offline';
-            text.innerText = 'Belum Connect';
+            text.innerText = 'Belum';
         }
     }
 
@@ -1282,7 +1339,7 @@ CONTOH RESPON:
 
     const inputArea = document.getElementById('chatInput');
     inputArea?.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
-    inputArea?.addEventListener('input', function() { this.style.height = 'auto'; this.style.height = Math.min(100, this.scrollHeight) + 'px'; });
+    inputArea?.addEventListener('input', function() { this.style.height = 'auto'; this.style.height = Math.min(80, this.scrollHeight) + 'px'; });
 
     window.clearImagePreview = clearImagePreview;
 
