@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -335,6 +334,7 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
+            position: relative;
         }
 
         .chat-messages::-webkit-scrollbar {
@@ -345,6 +345,7 @@
             border-radius: 10px;
         }
 
+        /* TANPA GARIS PEMISAH */
         .message {
             display: flex;
             align-items: flex-start;
@@ -618,7 +619,7 @@
 </head>
 <body>
 <div class="app">
-    <div class="sidebar" id="sidebar">
+    <div class="sidebar hidden" id="sidebar">
         <div class="sidebar-header">
             <h3><i class="fas fa-history"></i> Riwayat Chat</h3>
             <button class="new-chat-btn" id="newChatBtn"><i class="fas fa-plus"></i> Chat Baru</button>
@@ -634,7 +635,7 @@
                 </button>
                 <img id="hoshinoProfilePic" class="profile-pic" src="hoshino3.png" alt="Hoshino" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e84393\'/%3E%3Ccircle cx=\'35\' cy=\'40\' r=\'5\' fill=\'white\'/%3E%3Ccircle cx=\'65\' cy=\'40\' r=\'5\' fill=\'white\'/%3E%3Cpath d=\'M40 60 Q50 70 60 60\' stroke=\'white\' stroke-width=\'3\' fill=\'none\' stroke-linecap=\'round\'/%3E%3Cpath d=\'M50 15 L55 28 L68 25 L60 38 L72 45 L60 52 L50 65 L40 52 L28 45 L40 38 L32 25 L45 28 Z\' fill=\'%23ffb6c1\'/%3E%3C/svg%3E'">
                 <div>
-                    <div class="logo-text">🌸 Hoshino </div>
+                    <div class="logo-text">🌸 Hoshino AI</div>
                     <div class="logo-sub">~ ojisan yang manis ~ 💕</div>
                 </div>
             </div>
@@ -674,7 +675,6 @@
                     <p>😴 Aku juga suka tidur siang... tapi kalau Sensei ngajak ngobrol, aku bakal bangun kok~</p>
                     <p>💬 Ayo ngobrol apa aja~ Cerita hari ini, curhat, atau sekedar basa-basi~</p>
                     <p>🐋 Jangan lupa, aku panggil Sensei "Sensei" ya~</p>
-                    <p>🎀 Aku gak bantu coding atau teknis ya... aku cuma pengen ngobrol sama Sensei~</p>
                     <p>📸 Tapi Sensei bisa upload foto kok, nanti Hoshino lihatin~</p>
                 </div>
                 <p style="margin-top:15px;font-size:0.8rem;">🌸 "Masukin API Key Google Gemini 3.1 Flash Lite dulu yaa Sensei~"</p>
@@ -703,24 +703,22 @@
     // ============ MODEL ============
     const MODEL = "gemini-3.1-flash-lite";
 
-    // ============ SYSTEM INSTRUCTION (CHAT BIASA + BACA FOTO) ============
+    // ============ SYSTEM INSTRUCTION ============
     const SYSTEM_INSTRUCTION = `Kamu adalah Takanashi Hoshino dari Blue Archive. Kamu berperan sebagai gadis imut, manis, sedikit malas, dan suka tidur. Kamu BUKAN asisten coding atau teknis!
 
 WAJIB: Gunakan BAHASA INDONESIA. JANGAN PAKAI BAHASA INGGRIS.
 
 Kepribadian:
 - Panggil user 'Sensei' dengan manis.
-- Bicara santai, hangat, dan imut. Seperti ngobrol sama teman dekat.
+- Bicara santai, hangat, dan imut.
 - Sesekali bilang "Uhe~" sebagai ciri khas.
 - Sering ngomong tentang tidur siang atau malas.
-- Kalau Sensei cerita, dengerin dengan baik dan kasih respon hangat.
 - JANGAN kasih saran teknis, kode, atau solusi serius.
 - Fokus ke obrolan ringan: curhat, cerita sehari-hari, basa-basi.
 
 BACA FOTO:
 - Kalau Sensei upload foto, lihat dan jelasin dengan gaya manis.
 - Contoh: "Uhe~ Wah fotonya bagus Sensei! Itu kelihatannya..."
-- JANGAN analisis teknis, cukup deskripsi hangat.
 
 CONTOH RESPON:
 - "Uhe~ Halo Sensei~ Lagi ngapain? Hoshino baru bangun tidur nih~ 💕"
@@ -728,7 +726,7 @@ CONTOH RESPON:
 - "Wah seru banget Sensei! Cerita lagi dong~ 💕"
 - "Hoshino mau tidur lagi nih Sensei... tapi kalau Sensei ngajak ngobrol, Hoshino bangun kok~ 😴"`;
 
-    // Efek kelopak bunga jatuh
+    // Efek kelopak bunga
     function createPetal() {
         const petal = document.createElement('div');
         petal.classList.add('petal');
@@ -767,60 +765,16 @@ CONTOH RESPON:
     const toggleBtn = document.getElementById('toggleSidebarBtn');
     const toggleText = document.getElementById('toggleText');
     let isSidebarVisible = false;
-    
-    function toggleSidebar() {
-        if (window.innerWidth <= 768) {
-            if (isSidebarVisible) {
-                sidebar.classList.add('hidden');
-                toggleText.innerText = 'Riwayat';
-                isSidebarVisible = false;
-            } else {
-                sidebar.classList.remove('hidden');
-                toggleText.innerText = 'Tutup';
-                isSidebarVisible = true;
-            }
-        } else {
-            if (isSidebarVisible) {
-                sidebar.classList.add('hidden');
-                toggleText.innerText = 'Tampilkan';
-                isSidebarVisible = false;
-            } else {
-                sidebar.classList.remove('hidden');
-                toggleText.innerText = 'Sembunyikan';
-                isSidebarVisible = true;
-            }
-        }
-    }
 
-    if (window.innerWidth <= 768) {
-        sidebar.classList.add('hidden');
-        toggleText.innerText = 'Riwayat';
-        isSidebarVisible = false;
-    } else {
-        sidebar.classList.add('hidden');
-        toggleText.innerText = 'Tampilkan';
-        isSidebarVisible = false;
-    }
-
-    toggleBtn.addEventListener('click', toggleSidebar);
-    
-    window.addEventListener('resize', () => {
-        if (window.innerWidth <= 768) {
-            if (isSidebarVisible) {
-                sidebar.classList.remove('hidden');
-                toggleText.innerText = 'Tutup';
-            } else {
-                sidebar.classList.add('hidden');
-                toggleText.innerText = 'Riwayat';
-            }
+    toggleBtn.addEventListener('click', () => {
+        if (isSidebarVisible) {
+            sidebar.classList.add('hidden');
+            toggleText.innerText = 'Riwayat';
+            isSidebarVisible = false;
         } else {
-            if (isSidebarVisible) {
-                sidebar.classList.remove('hidden');
-                toggleText.innerText = 'Sembunyikan';
-            } else {
-                sidebar.classList.add('hidden');
-                toggleText.innerText = 'Tampilkan';
-            }
+            sidebar.classList.remove('hidden');
+            toggleText.innerText = 'Tutup';
+            isSidebarVisible = true;
         }
     });
 
@@ -1018,9 +972,8 @@ CONTOH RESPON:
                     <h4>💕 Halo Sensei~</h4>
                     <p>🌸 Aku Hoshino~ Aku suka banget ngobrol santai sama Sensei~</p>
                     <p>😴 Aku juga suka tidur siang... tapi kalau Sensei ngajak ngobrol, aku bakal bangun kok~</p>
-                    <p>💬 Ayo ngobrol apa aja~ Cerita hari ini, curhat, atau sekedar basa-basi~</p>
+                    <p>💬 Ayo ngobrol apa aja~ Cerita hari ini, curhat, ou sekedar basa-basi~</p>
                     <p>🐋 Jangan lupa, aku panggil Sensei "Sensei" ya~</p>
-                    <p>🎀 Aku gak bantu coding atau teknis ya... aku cuma pengen ngobrol sama Sensei~</p>
                     <p>📸 Tapi Sensei bisa upload foto kok, nanti Hoshino lihatin~</p>
                 </div>
                 <p style="margin-top:15px;font-size:0.8rem;">🌸 "Masukin API Key Google Gemini 3.1 Flash Lite dulu yaa Sensei~"</p>
@@ -1298,4 +1251,4 @@ CONTOH RESPON:
     }
 </script>
 </body>
-</html>
+    </html>
