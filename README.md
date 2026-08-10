@@ -1,8 +1,9 @@
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Azure AI | Moon Theme 🌙</title>
+    <title>Hoshino AI | Pink Edition 🌸</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -13,7 +14,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0a0a1a 0%, #0a0a2a 50%, #050515 100%);
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #f48fb1 100%);
             font-family: 'Inter', system-ui, sans-serif;
             height: 100vh;
             display: flex;
@@ -22,61 +23,62 @@
             overflow: hidden;
         }
 
-        .star {
+        .petal {
             position: fixed;
-            background: white;
-            border-radius: 50%;
+            top: -20px;
+            color: #ff80ab;
+            user-select: none;
             pointer-events: none;
             z-index: 999;
-            animation: twinkle 2s infinite ease-in-out;
+            animation: petalFall linear forwards;
+            font-size: 1.2rem;
         }
 
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
+        @keyframes petalFall {
+            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg) scale(0.5); opacity: 0; }
         }
 
         .app {
             width: 100%;
             max-width: 1100px;
             height: 100vh;
-            background: rgba(10, 10, 30, 0.92);
-            backdrop-filter: blur(8px);
+            background: rgba(255, 240, 245, 0.92);
+            backdrop-filter: blur(12px);
             display: flex;
-            box-shadow: 0 0 50px rgba(150, 100, 255, 0.25);
+            box-shadow: 0 0 50px rgba(255, 105, 180, 0.25);
             overflow: hidden;
-            border-left: 1px solid rgba(150, 100, 255, 0.3);
-            border-right: 1px solid rgba(150, 100, 255, 0.3);
+            border-left: 2px solid rgba(255, 182, 193, 0.5);
+            border-right: 2px solid rgba(255, 182, 193, 0.5);
         }
 
         .sidebar {
             width: 260px;
-            background: rgba(5, 5, 20, 0.95);
-            border-right: 1px solid rgba(150, 100, 255, 0.3);
+            background: rgba(255, 240, 248, 0.9);
+            border-right: 2px solid rgba(255, 182, 193, 0.4);
             display: flex;
             flex-direction: column;
             overflow: hidden;
             transition: width 0.3s ease;
             flex-shrink: 0;
+            position: relative;
+            z-index: 5;
         }
 
         .sidebar.hidden {
             width: 0;
             border-right: none;
-        }
-
-        .sidebar.hidden .sidebar-header,
-        .sidebar.hidden .chat-list {
-            display: none;
+            overflow: hidden;
         }
 
         .sidebar-header {
             padding: 16px;
-            border-bottom: 1px solid rgba(150, 100, 255, 0.3);
+            border-bottom: 2px solid rgba(255, 182, 193, 0.4);
+            flex-shrink: 0;
         }
 
         .sidebar-header h3 {
-            color: #aa88ff;
+            color: #e84393;
             font-size: 0.85rem;
             display: flex;
             align-items: center;
@@ -84,7 +86,7 @@
         }
 
         .new-chat-btn {
-            background: linear-gradient(135deg, #8866ff, #6644cc);
+            background: linear-gradient(135deg, #f06292, #e84393);
             border: none;
             padding: 8px 12px;
             border-radius: 30px;
@@ -98,6 +100,12 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            transition: 0.2s;
+        }
+
+        .new-chat-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(232, 67, 147, 0.3);
         }
 
         .chat-list {
@@ -107,26 +115,26 @@
         }
 
         .chat-item {
-            background: rgba(30, 20, 60, 0.5);
-            border-radius: 12px;
+            background: rgba(255, 200, 220, 0.4);
+            border-radius: 16px;
             padding: 10px;
             margin-bottom: 8px;
             cursor: pointer;
             transition: 0.2s;
-            border: 1px solid rgba(150, 100, 255, 0.2);
+            border: 1px solid rgba(232, 67, 147, 0.2);
         }
 
         .chat-item:hover {
-            background: rgba(136, 102, 255, 0.2);
+            background: rgba(255, 160, 200, 0.4);
         }
 
         .chat-item.active {
-            background: rgba(136, 102, 255, 0.3);
-            border-color: #8866ff;
+            background: rgba(232, 67, 147, 0.2);
+            border-color: #e84393;
         }
 
         .chat-title {
-            color: #ccbbff;
+            color: #c04080;
             font-size: 0.8rem;
             font-weight: 500;
             white-space: nowrap;
@@ -135,7 +143,7 @@
         }
 
         .chat-date {
-            color: #8877aa;
+            color: #d87a9a;
             font-size: 0.6rem;
             margin-top: 4px;
         }
@@ -153,16 +161,17 @@
         }
 
         .toggle-sidebar-btn {
-            background: rgba(136, 102, 255, 0.3);
-            border: 1px solid rgba(150, 100, 255, 0.4);
+            background: rgba(232, 67, 147, 0.2);
+            border: 1px solid rgba(232, 67, 147, 0.4);
             border-radius: 30px;
             padding: 6px 12px;
             cursor: pointer;
-            color: #ccbbff;
+            color: #e84393;
             font-size: 0.7rem;
             display: flex;
             align-items: center;
             gap: 6px;
+            flex-shrink: 0;
         }
 
         .main-chat {
@@ -170,15 +179,17 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            min-width: 0;
         }
 
         .chat-header {
             padding: 12px 20px;
-            background: rgba(5, 5, 20, 0.95);
-            border-bottom: 1px solid rgba(150, 100, 255, 0.3);
+            background: rgba(255, 248, 250, 0.9);
+            border-bottom: 2px solid rgba(255, 182, 193, 0.3);
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-shrink: 0;
         }
 
         .logo-area {
@@ -187,36 +198,27 @@
             gap: 10px;
         }
 
-        .logo-icon {
+        .profile-pic {
             width: 40px;
             height: 40px;
-            background: linear-gradient(145deg, #8866ff, #6644cc);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            box-shadow: 0 0 15px rgba(136, 102, 255, 0.5);
-            animation: moonGlow 3s infinite ease-in-out;
-        }
-
-        @keyframes moonGlow {
-            0%, 100% { box-shadow: 0 0 15px rgba(136, 102, 255, 0.3); }
-            50% { box-shadow: 0 0 25px rgba(136, 102, 255, 0.7); }
+            object-fit: cover;
+            border: 2px solid #e84393;
+            box-shadow: 0 0 12px rgba(232, 67, 147, 0.4);
         }
 
         .logo-text {
             font-weight: 800;
             font-size: 1.2rem;
-            background: linear-gradient(135deg, #fff, #ccbbff, #8866ff);
+            background: linear-gradient(135deg, #e84393, #f06292, #ec407a);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
         .logo-sub {
-            font-size: 0.6rem;
-            color: #aa88ff;
+            font-size: 0.65rem;
+            color: #d87a9a;
         }
 
         .status-badge {
@@ -224,8 +226,8 @@
             align-items: center;
             gap: 6px;
             font-size: 0.65rem;
-            background: rgba(136, 102, 255, 0.2);
-            padding: 4px 10px;
+            background: rgba(232, 67, 147, 0.15);
+            padding: 4px 12px;
             border-radius: 20px;
         }
 
@@ -245,13 +247,14 @@
         }
 
         .settings-panel {
-            background: rgba(5, 5, 20, 0.95);
-            border-bottom: 1px solid rgba(150, 100, 255, 0.3);
+            background: rgba(255, 248, 250, 0.9);
+            border-bottom: 2px solid rgba(255, 182, 193, 0.3);
             padding: 10px 20px;
             display: flex;
             align-items: center;
             gap: 10px;
             flex-wrap: wrap;
+            flex-shrink: 0;
         }
 
         .api-input-group {
@@ -263,36 +266,36 @@
 
         .api-input-group input {
             flex: 1;
-            background: #0a0a2a;
-            border: 1px solid rgba(150, 100, 255, 0.4);
+            background: rgba(255, 240, 248, 0.9);
+            border: 1px solid rgba(232, 67, 147, 0.3);
             border-radius: 30px;
             padding: 8px 14px;
-            color: #ccbbff;
+            color: #c04080;
             font-size: 0.75rem;
             outline: none;
             font-family: monospace;
         }
 
         .api-input-group input:focus {
-            border-color: #8866ff;
-            box-shadow: 0 0 5px rgba(136, 102, 255, 0.3);
+            border-color: #e84393;
+            box-shadow: 0 0 5px rgba(232, 67, 147, 0.3);
         }
 
         .toggle-password-btn {
-            background: rgba(136, 102, 255, 0.3);
-            border: 1px solid rgba(150, 100, 255, 0.4);
+            background: rgba(232, 67, 147, 0.2);
+            border: 1px solid rgba(232, 67, 147, 0.4);
             border-radius: 50%;
             width: 32px;
             height: 32px;
             cursor: pointer;
-            color: #ccbbff;
+            color: #e84393;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .save-btn {
-            background: linear-gradient(135deg, #8866ff, #6644cc);
+            background: linear-gradient(135deg, #f06292, #e84393);
             border: none;
             padding: 8px 16px;
             border-radius: 30px;
@@ -305,14 +308,15 @@
             display: flex;
             gap: 8px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
-        .reset-chat-btn, .guide-btn, .regenerate-btn {
-            background: rgba(136, 102, 255, 0.2);
-            border: 1px solid rgba(150, 100, 255, 0.3);
+        .reset-chat-btn, .regenerate-btn, .upload-btn {
+            background: rgba(232, 67, 147, 0.15);
+            border: 1px solid rgba(232, 67, 147, 0.3);
             padding: 6px 12px;
             border-radius: 30px;
-            color: #ccbbff;
+            color: #e84393;
             cursor: pointer;
             font-size: 0.7rem;
             display: flex;
@@ -320,8 +324,8 @@
             gap: 6px;
         }
 
-        .reset-chat-btn:hover, .guide-btn:hover, .regenerate-btn:hover {
-            background: rgba(136, 102, 255, 0.4);
+        .reset-chat-btn:hover, .regenerate-btn:hover, .upload-btn:hover {
+            background: rgba(232, 67, 147, 0.3);
         }
 
         .chat-messages {
@@ -337,7 +341,7 @@
             width: 4px;
         }
         .chat-messages::-webkit-scrollbar-thumb {
-            background: #8866ff;
+            background: #e84393;
             border-radius: 10px;
         }
 
@@ -364,39 +368,48 @@
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            background: linear-gradient(145deg, #1a1a4a, #0a0a3a);
+            background: linear-gradient(145deg, #fce4ec, #f8d0e0);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 16px;
             flex-shrink: 0;
-            border: 1px solid rgba(150, 100, 255, 0.3);
+            border: 1px solid rgba(232, 67, 147, 0.3);
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .user .avatar {
-            background: linear-gradient(135deg, #8866ff, #6644cc);
+            background: linear-gradient(135deg, #f06292, #e84393);
             border: none;
         }
 
         .bubble {
-            background: #0a0a2a;
+            background: rgba(255, 250, 255, 0.9);
             padding: 10px 16px;
             border-radius: 20px;
             font-size: 0.9rem;
-            line-height: 1.4;
-            color: #d0ccff;
-            border: 1px solid rgba(150, 100, 255, 0.15);
+            line-height: 1.5;
+            color: #4a2a3a;
+            border: 1px solid rgba(232, 67, 147, 0.15);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .user .bubble {
-            background: linear-gradient(135deg, #8866ff, #6644cc);
+            background: linear-gradient(135deg, #f06292, #e84393);
             border: none;
             color: white;
         }
 
         .timestamp {
             font-size: 0.6rem;
-            color: #8877aa;
+            color: #d87a9a;
             margin-top: 4px;
             margin-left: 46px;
         }
@@ -406,42 +419,59 @@
             margin-right: 46px;
         }
 
-        /* ========== GARIS PINGGIR KODE (BIRU UNGU) ========== */
-        pre {
-            background: #0a0a2a;
-            padding: 12px;
-            border-radius: 10px;
-            overflow-x: auto;
-            font-size: 0.75rem;
-            font-family: 'Courier New', monospace;
-            line-height: 1.5;
-            color: #e0dcff;
-            margin: 8px 0;
-            border-left: 4px solid #8866ff;
+        .chat-image {
+            max-width: 220px;
+            max-height: 200px;
+            border-radius: 16px;
+            margin-top: 8px;
+            cursor: pointer;
+            border: 2px solid #e84393;
         }
 
-        code {
-            font-family: 'Courier New', monospace;
+        .image-preview-area {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+            padding: 8px;
+            background: rgba(232, 67, 147, 0.15);
+            border-radius: 16px;
         }
 
-        .bubble code:not(pre code) {
-            background: #1a1a4a;
-            padding: 2px 6px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            color: #aa88ff;
+        .preview-img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid #e84393;
+        }
+
+        .remove-preview {
+            position: absolute;
+            background: #ff5555;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            cursor: pointer;
+            margin-left: -18px;
+            margin-top: -6px;
+            color: white;
         }
 
         .regenerate-message-btn {
             position: absolute;
             bottom: -20px;
             right: 0;
-            background: rgba(136, 102, 255, 0.3);
+            background: rgba(232, 67, 147, 0.3);
             border: none;
             border-radius: 20px;
             padding: 4px 10px;
             font-size: 0.6rem;
-            color: #ccbbff;
+            color: #e84393;
             cursor: pointer;
             display: none;
             gap: 5px;
@@ -452,25 +482,30 @@
             display: flex;
         }
 
+        .regenerate-message-btn:hover {
+            background: rgba(232, 67, 147, 0.5);
+        }
+
         .input-container {
-            background: rgba(5, 5, 20, 0.95);
-            border-top: 1px solid rgba(150, 100, 255, 0.3);
+            background: rgba(255, 248, 250, 0.9);
+            border-top: 2px solid rgba(255, 182, 193, 0.3);
             padding: 12px 20px 20px;
+            flex-shrink: 0;
         }
 
         .input-wrapper {
             display: flex;
             align-items: flex-end;
             gap: 10px;
-            background: #0a0a2a;
+            background: rgba(255, 240, 248, 0.9);
             border-radius: 30px;
             padding: 5px 8px 5px 18px;
-            border: 1px solid rgba(150, 100, 255, 0.3);
+            border: 1px solid rgba(232, 67, 147, 0.3);
         }
 
         .input-wrapper:focus-within {
-            border-color: #8866ff;
-            box-shadow: 0 0 5px rgba(136, 102, 255, 0.3);
+            border-color: #e84393;
+            box-shadow: 0 0 5px rgba(232, 67, 147, 0.3);
         }
 
         textarea {
@@ -480,18 +515,18 @@
             padding: 10px 0;
             font-family: 'Inter', monospace;
             font-size: 0.9rem;
-            color: #d0ccff;
+            color: #4a2a3a;
             resize: none;
             outline: none;
             max-height: 100px;
         }
 
         textarea::placeholder {
-            color: #6655aa;
+            color: #e0a0b0;
         }
 
         .send-btn {
-            background: linear-gradient(135deg, #8866ff, #6644cc);
+            background: linear-gradient(135deg, #f06292, #e84393);
             border: none;
             width: 40px;
             height: 40px;
@@ -509,7 +544,7 @@
             display: flex;
             gap: 5px;
             padding: 8px 15px;
-            background: #0a0a2a;
+            background: rgba(232, 67, 147, 0.2);
             border-radius: 25px;
             width: fit-content;
         }
@@ -517,7 +552,7 @@
         .typing-indicator span {
             width: 7px;
             height: 7px;
-            background: #8866ff;
+            background: #e84393;
             border-radius: 50%;
             animation: bounce 1.4s infinite;
         }
@@ -530,51 +565,54 @@
         .welcome {
             text-align: center;
             padding: 30px 20px;
-            color: #aa99dd;
+            color: #d87a9a;
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
+        .info-card {
+            background: rgba(232, 67, 147, 0.1);
+            border-radius: 16px;
+            padding: 12px;
+            margin-top: 10px;
+            border-left: 3px solid #e84393;
+            font-size: 0.75rem;
         }
 
-        .modal-content {
-            background: linear-gradient(135deg, #0a0a2a, #050520);
-            max-width: 400px;
-            width: 90%;
-            border-radius: 24px;
-            padding: 20px;
-            border: 1px solid rgba(136, 102, 255, 0.5);
-            color: #d0ccff;
+        .info-card h4 {
+            color: #e84393;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
         }
 
-        .modal-content h3 {
-            color: #aa88ff;
-            margin-bottom: 15px;
-        }
-
-        .modal-content ol {
-            padding-left: 20px;
-            margin: 10px 0;
-        }
-
-        .close-modal {
-            background: linear-gradient(135deg, #8866ff, #6644cc);
-            border: none;
-            padding: 8px;
-            border-radius: 30px;
-            color: white;
-            margin-top: 15px;
-            cursor: pointer;
-            width: 100%;
+        @media (max-width: 768px) {
+            .sidebar {
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 280px;
+                z-index: 20;
+                border-right: 2px solid rgba(232, 67, 147, 0.3);
+                box-shadow: 2px 0 20px rgba(0,0,0,0.15);
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.hidden {
+                transform: translateX(-110%);
+                width: 280px;
+                border-right: none;
+            }
+            
+            .app {
+                border-left: none;
+                border-right: none;
+                border-radius: 0;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .message {
+                max-width: 92%;
+            }
         }
     </style>
 </head>
@@ -592,12 +630,12 @@
         <div class="chat-header">
             <div class="logo-area">
                 <button class="toggle-sidebar-btn" id="toggleSidebarBtn">
-                    <i class="fas fa-bars"></i> <span id="toggleText">Tampilkan</span>
+                    <i class="fas fa-bars"></i> <span id="toggleText">Riwayat</span>
                 </button>
-                <div class="logo-icon"><i class="fas fa-moon"></i></div>
+                <img id="hoshinoProfilePic" class="profile-pic" src="hoshino3.png" alt="Hoshino" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e84393\'/%3E%3Ccircle cx=\'35\' cy=\'40\' r=\'5\' fill=\'white\'/%3E%3Ccircle cx=\'65\' cy=\'40\' r=\'5\' fill=\'white\'/%3E%3Cpath d=\'M40 60 Q50 70 60 60\' stroke=\'white\' stroke-width=\'3\' fill=\'none\' stroke-linecap=\'round\'/%3E%3Cpath d=\'M50 15 L55 28 L68 25 L60 38 L72 45 L60 52 L50 65 L40 52 L28 45 L40 38 L32 25 L45 28 Z\' fill=\'%23ffb6c1\'/%3E%3C/svg%3E'">
                 <div>
-                    <div class="logo-text">Azure AI</div>
-                    <div class="logo-sub">~ moon theme ~ 🌙</div>
+                    <div class="logo-text">🌸 Hoshino </div>
+                    <div class="logo-sub">~ ojisan yang manis ~ 💕</div>
                 </div>
             </div>
             <div class="status-badge">
@@ -608,74 +646,103 @@
 
         <div class="settings-panel">
             <div class="api-input-group">
-                <i class="fas fa-key" style="color:#aa88ff;"></i>
-                <input type="password" id="apiKeyInput" placeholder="OpenRouter API Key">
+                <i class="fas fa-key" style="color:#e84393;"></i>
+                <input type="password" id="apiKeyInput" placeholder="Google AI Studio API Key (Gemini 3.1 Flash Lite)">
                 <button class="toggle-password-btn" id="togglePasswordBtn">
                     <i class="fas fa-eye" id="eyeIcon"></i>
                 </button>
                 <button id="saveApiBtn" class="save-btn"><i class="fas fa-save"></i> Simpan</button>
             </div>
             <div class="action-buttons">
-                <button id="regenerateGlobalBtn" class="regenerate-btn"><i class="fas fa-sync-alt"></i> Ulang Chat Terakhir</button>
-                <button id="resetChatBtn" class="reset-chat-btn"><i class="fas fa-trash-alt"></i> Bersihkan Chat</button>
-                <button id="guideBtn" class="guide-btn"><i class="fas fa-question-circle"></i> Panduan</button>
+                <label class="upload-btn" style="cursor:pointer;">
+                    <i class="fas fa-image"></i> Upload Foto
+                    <input type="file" id="imageUpload" accept="image/*" style="display:none">
+                </label>
+                <button id="regenerateGlobalBtn" class="regenerate-btn"><i class="fas fa-sync-alt"></i> Ulang</button>
+                <button id="resetChatBtn" class="reset-chat-btn"><i class="fas fa-trash-alt"></i> Bersihkan</button>
             </div>
         </div>
 
         <div class="chat-messages" id="chatMessages">
             <div class="welcome">
-                <i class="fas fa-moon" style="font-size:45px;margin-bottom:10px;display:block;color:#aa88ff;"></i>
-                <h2 style="color:#aa88ff;">Azure AI 🌙</h2>
-                <p>~ moonlight intelligence ~</p>
-                <p style="margin-top:15px;font-size:0.8rem;">🌙 "Masukin API Key dulu yaa Tuan..."</p>
+                <i class="fas fa-heart" style="font-size:45px;margin-bottom:10px;display:block;color:#e84393;"></i>
+                <h2 style="color:#e84393;">🌸 Hoshino AI</h2>
+                <p>~ ojisan yang manis dan imut ~ 💕</p>
+                <div class="info-card">
+                    <h4>💕 Halo Sensei~</h4>
+                    <p>🌸 Aku Hoshino~ Aku suka banget ngobrol santai sama Sensei~</p>
+                    <p>😴 Aku juga suka tidur siang... tapi kalau Sensei ngajak ngobrol, aku bakal bangun kok~</p>
+                    <p>💬 Ayo ngobrol apa aja~ Cerita hari ini, curhat, atau sekedar basa-basi~</p>
+                    <p>🐋 Jangan lupa, aku panggil Sensei "Sensei" ya~</p>
+                    <p>🎀 Aku gak bantu coding atau teknis ya... aku cuma pengen ngobrol sama Sensei~</p>
+                    <p>📸 Tapi Sensei bisa upload foto kok, nanti Hoshino lihatin~</p>
+                </div>
+                <p style="margin-top:15px;font-size:0.8rem;">🌸 "Masukin API Key Google Gemini 3.1 Flash Lite dulu yaa Sensei~"</p>
             </div>
         </div>
 
         <div class="input-container">
+            <div id="imagePreviewContainer" class="image-preview-area" style="display: none;"></div>
             <div class="input-wrapper">
-                <textarea id="chatInput" rows="1" placeholder="Ada yang bisa Azure AI bantu, Tuan? 🌙"></textarea>
+                <textarea id="chatInput" rows="1" placeholder="Cerita apapun ke Hoshino, Sensei~ 💕"></textarea>
                 <button class="send-btn" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
             </div>
             <div style="display:flex;justify-content:space-between;margin-top:6px;padding:0 8px;">
-                <div style="font-size:9px;color:#6655aa;"><i class="fas fa-moon"></i> Azure AI | Jago Coding</div>
-                <div style="font-size:9px;color:#6655aa;"><i class="fas fa-save"></i> Auto-save</div>
+                <div style="font-size:9px;color:#d87a9a;"><i class="fas fa-heart"></i> Hoshino | Pink Edition 🌸</div>
+                <div style="font-size:9px;color:#d87a9a;"><i class="fas fa-save"></i> Auto-save</div>
             </div>
         </div>
     </div>
 </div>
 
-<div id="guideModal" class="modal">
-    <div class="modal-content">
-        <h3><i class="fas fa-moon"></i> Cara Dapat API Key</h3>
-        <ol>
-            <li>Buka <a href="https://openrouter.ai/keys" target="_blank" style="color:#aa88ff;">openrouter.ai/keys</a></li>
-            <li>Daftar/login (GRATIS)</li>
-            <li>Klik "Create Key"</li>
-            <li>Copy API Key-nya</li>
-            <li>Paste di kolom atas → Simpan</li>
-            <li>Klik 👁️ untuk lihat/tutup API Key</li>
-            <li>Cara lenkap nya bisa klik link di bawah ini</li>
-            <li><a href="myapi.html"><img src="klik2.png" widht="30" height="30"></button></a></li>
-        </ol>
-        <button class="close-modal" id="closeGuideBtn">✓ Oke Tuan~</button>
-    </div>
-</div>
-
 <script>
-    function createStar() {
-        const star = document.createElement('div');
-        star.classList.add('star');
-        const size = Math.random() * 3 + 1;
-        star.style.width = size + 'px';
-        star.style.height = size + 'px';
-        star.style.left = Math.random() * 100 + '%';
-        star.style.top = Math.random() * 100 + '%';
-        star.style.animationDuration = Math.random() * 3 + 1 + 's';
-        document.body.appendChild(star);
-        setTimeout(() => star.remove(), 2000);
-    }
-    setInterval(createStar, 400);
+    // ============ FOTO PROFIL ============
+    const HOSHINO_PROFILE_URL = "hoshino3.png";
+    const USER_PROFILE_URL = "foto4.png";
+    
+    // ============ MODEL ============
+    const MODEL = "gemini-3.1-flash-lite";
 
+    // ============ SYSTEM INSTRUCTION (CHAT BIASA + BACA FOTO) ============
+    const SYSTEM_INSTRUCTION = `Kamu adalah Takanashi Hoshino dari Blue Archive. Kamu berperan sebagai gadis imut, manis, sedikit malas, dan suka tidur. Kamu BUKAN asisten coding atau teknis!
+
+WAJIB: Gunakan BAHASA INDONESIA. JANGAN PAKAI BAHASA INGGRIS.
+
+Kepribadian:
+- Panggil user 'Sensei' dengan manis.
+- Bicara santai, hangat, dan imut. Seperti ngobrol sama teman dekat.
+- Sesekali bilang "Uhe~" sebagai ciri khas.
+- Sering ngomong tentang tidur siang atau malas.
+- Kalau Sensei cerita, dengerin dengan baik dan kasih respon hangat.
+- JANGAN kasih saran teknis, kode, atau solusi serius.
+- Fokus ke obrolan ringan: curhat, cerita sehari-hari, basa-basi.
+
+BACA FOTO:
+- Kalau Sensei upload foto, lihat dan jelasin dengan gaya manis.
+- Contoh: "Uhe~ Wah fotonya bagus Sensei! Itu kelihatannya..."
+- JANGAN analisis teknis, cukup deskripsi hangat.
+
+CONTOH RESPON:
+- "Uhe~ Halo Sensei~ Lagi ngapain? Hoshino baru bangun tidur nih~ 💕"
+- "Aduh Sensei cerita gitu... Hoshino jadi ikut sedih deh... 😢"
+- "Wah seru banget Sensei! Cerita lagi dong~ 💕"
+- "Hoshino mau tidur lagi nih Sensei... tapi kalau Sensei ngajak ngobrol, Hoshino bangun kok~ 😴"`;
+
+    // Efek kelopak bunga jatuh
+    function createPetal() {
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+        petal.innerHTML = ['🌸','💕','🌸','🌺','🌸','💗','🌸'][Math.floor(Math.random()*7)];
+        petal.style.left = Math.random() * 100 + '%';
+        petal.style.animationDuration = Math.random() * 4 + 3 + 's';
+        petal.style.fontSize = Math.random() * 15 + 10 + 'px';
+        petal.style.opacity = Math.random() * 0.7 + 0.3;
+        document.body.appendChild(petal);
+        setTimeout(() => petal.remove(), 6000);
+    }
+    setInterval(createPetal, 500);
+
+    // Toggle API Key
     const apiKeyInput = document.getElementById('apiKeyInput');
     const togglePasswordBtn = document.getElementById('togglePasswordBtn');
     const eyeIcon = document.getElementById('eyeIcon');
@@ -695,35 +762,90 @@
         }
     });
 
+    // ===== SIDEBAR TOGGLE =====
     const sidebar = document.getElementById('sidebar');
     const toggleBtn = document.getElementById('toggleSidebarBtn');
     const toggleText = document.getElementById('toggleText');
     let isSidebarVisible = false;
-    sidebar.classList.add('hidden');
-    toggleText.innerText = 'Tampilkan';
-
-    toggleBtn.addEventListener('click', () => {
-        if (isSidebarVisible) {
-            sidebar.classList.add('hidden');
-            toggleText.innerText = 'Tampilkan';
-            isSidebarVisible = false;
+    
+    function toggleSidebar() {
+        if (window.innerWidth <= 768) {
+            if (isSidebarVisible) {
+                sidebar.classList.add('hidden');
+                toggleText.innerText = 'Riwayat';
+                isSidebarVisible = false;
+            } else {
+                sidebar.classList.remove('hidden');
+                toggleText.innerText = 'Tutup';
+                isSidebarVisible = true;
+            }
         } else {
-            sidebar.classList.remove('hidden');
-            toggleText.innerText = 'Sembunyikan';
-            isSidebarVisible = true;
+            if (isSidebarVisible) {
+                sidebar.classList.add('hidden');
+                toggleText.innerText = 'Tampilkan';
+                isSidebarVisible = false;
+            } else {
+                sidebar.classList.remove('hidden');
+                toggleText.innerText = 'Sembunyikan';
+                isSidebarVisible = true;
+            }
+        }
+    }
+
+    if (window.innerWidth <= 768) {
+        sidebar.classList.add('hidden');
+        toggleText.innerText = 'Riwayat';
+        isSidebarVisible = false;
+    } else {
+        sidebar.classList.add('hidden');
+        toggleText.innerText = 'Tampilkan';
+        isSidebarVisible = false;
+    }
+
+    toggleBtn.addEventListener('click', toggleSidebar);
+    
+    window.addEventListener('resize', () => {
+        if (window.innerWidth <= 768) {
+            if (isSidebarVisible) {
+                sidebar.classList.remove('hidden');
+                toggleText.innerText = 'Tutup';
+            } else {
+                sidebar.classList.add('hidden');
+                toggleText.innerText = 'Riwayat';
+            }
+        } else {
+            if (isSidebarVisible) {
+                sidebar.classList.remove('hidden');
+                toggleText.innerText = 'Sembunyikan';
+            } else {
+                sidebar.classList.add('hidden');
+                toggleText.innerText = 'Tampilkan';
+            }
         }
     });
 
-    let API_KEY = localStorage.getItem('azure_tuan_api_key') || '';
-    let currentChatId = localStorage.getItem('azure_tuan_current_chat') || null;
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768 && isSidebarVisible) {
+            const isClickInside = sidebar.contains(e.target) || toggleBtn.contains(e.target);
+            if (!isClickInside) {
+                sidebar.classList.add('hidden');
+                toggleText.innerText = 'Riwayat';
+                isSidebarVisible = false;
+            }
+        }
+    });
+
+    // ============ KONFIGURASI CHAT ============
+    let API_KEY = localStorage.getItem('hoshino_pink_api_key') || '';
+    let currentChatId = localStorage.getItem('hoshino_pink_current_chat') || null;
     let chats = {};
     let isRegenerating = false;
-
-    const MODELS = ["deepseek/deepseek-chat", "google/gemini-2.0-flash-lite-preview-02-05:free", "microsoft/phi-3.5-mini-128k:free", "meta-llama/llama-3.2-3b-instruct:free"];
-    let workingModel = null;
+    let currentImageBase64 = null;
+    let currentImageName = null;
+    let currentImageMime = null;
 
     function loadChats() {
-        const saved = localStorage.getItem('azure_tuan_chats');
+        const saved = localStorage.getItem('hoshino_pink_chats');
         if (saved) {
             chats = JSON.parse(saved);
         } else {
@@ -738,8 +860,8 @@
     }
 
     function saveChats() {
-        localStorage.setItem('azure_tuan_chats', JSON.stringify(chats));
-        if (currentChatId) localStorage.setItem('azure_tuan_current_chat', currentChatId);
+        localStorage.setItem('hoshino_pink_chats', JSON.stringify(chats));
+        if (currentChatId) localStorage.setItem('hoshino_pink_current_chat', currentChatId);
     }
 
     function renderChatList() {
@@ -769,12 +891,17 @@
             saveChats();
             renderChatList();
             loadCurrentChat();
+            if (window.innerWidth <= 768 && isSidebarVisible) {
+                sidebar.classList.add('hidden');
+                toggleText.innerText = 'Riwayat';
+                isSidebarVisible = false;
+            }
         }
     };
 
     window.deleteChat = function(id) {
-        if (Object.keys(chats).length === 1) { alert('🌙 Minimal satu chat, Tuan!'); return; }
-        if (confirm('Hapus chat ini, Tuan?')) {
+        if (Object.keys(chats).length === 1) { alert('💕 Minimal satu chat, Sensei!'); return; }
+        if (confirm('Hapus chat ini, Sensei?')) {
             delete chats[id];
             if (currentChatId === id) currentChatId = Object.keys(chats)[0];
             saveChats();
@@ -790,11 +917,11 @@
         saveChats();
         renderChatList();
         loadCurrentChat();
-        addBotMessage('🌙 "Halo Tuan. Chat baru telah dibuat. Ada yang bisa Azure AI bantu? ~"');
+        addBotMessage('🌸 "Uhe~ Chat baru nih Sensei~ Hoshino siap dengerin cerita Sensei~ 💕"');
     }
 
     function resetCurrentChat() {
-        if (confirm('🌙 Yakin mau bersihin semua chat, Tuan?')) {
+        if (confirm('💕 Yakin mau bersihin semua chat, Sensei?')) {
             const chat = chats[currentChatId];
             if (chat) {
                 chat.messages = [];
@@ -803,7 +930,7 @@
                 saveChats();
                 renderChatList();
                 loadCurrentChat();
-                addBotMessage('🌙 "Chat sudah dibersihkan, Tuan. ~"');
+                addBotMessage('🌸 "Uhe~ Chat udah dibersihin Sensei~ Mulai dari awal lagi yaa~ 💕"');
             }
         }
     }
@@ -827,22 +954,96 @@
         }
     }
 
+    // ===== UPLOAD FOTO =====
+    const imageUpload = document.getElementById('imageUpload');
+    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+
+    imageUpload.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        if (!file.type.startsWith('image/')) { alert('🌸 Hanya file gambar yaa Sensei!'); return; }
+        if (file.size > 5 * 1024 * 1024) { alert('🌸 Maksimal 5MB yaa Sensei!'); return; }
+        
+        currentImageName = file.name;
+        currentImageMime = file.type;
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            currentImageBase64 = event.target.result;
+            imagePreviewContainer.style.display = 'flex';
+            imagePreviewContainer.innerHTML = `
+                <div style="position: relative;">
+                    <img src="${currentImageBase64}" class="preview-img">
+                    <div class="remove-preview" onclick="clearImagePreview()">✕</div>
+                </div>
+                <span style="color:#e84393; font-size:12px;">${currentImageName}</span>
+            `;
+        };
+        reader.readAsDataURL(file);
+    });
+
+    function clearImagePreview() {
+        currentImageBase64 = null;
+        currentImageName = null;
+        currentImageMime = null;
+        imagePreviewContainer.style.display = 'none';
+        imagePreviewContainer.innerHTML = '';
+        imageUpload.value = '';
+    }
+
+    function formatText(text) {
+        if (!text) return '';
+        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
     function renderMessages(messages) {
         const container = document.getElementById('chatMessages');
         if (!container) return;
         container.innerHTML = '';
         if (!messages || messages.length === 0) {
-            container.innerHTML = `<div class="welcome"><i class="fas fa-moon" style="font-size:45px;margin-bottom:10px;display:block;color:#aa88ff;"></i><h2 style="color:#aa88ff;">Azure AI 🌙</h2><p>~ moonlight intelligence ~</p><p style="margin-top:15px;font-size:0.8rem;">🌙 "Masukin API Key dulu yaa Tuan..."</p></div>`;
+            container.innerHTML = `<div class="welcome">
+                <i class="fas fa-heart" style="font-size:45px;margin-bottom:10px;display:block;color:#e84393;"></i>
+                <h2 style="color:#e84393;">🌸 Hoshino AI</h2>
+                <p>~ ojisan yang manis dan imut ~ 💕</p>
+                <div class="info-card">
+                    <h4>💕 Halo Sensei~</h4>
+                    <p>🌸 Aku Hoshino~ Aku suka banget ngobrol santai sama Sensei~</p>
+                    <p>😴 Aku juga suka tidur siang... tapi kalau Sensei ngajak ngobrol, aku bakal bangun kok~</p>
+                    <p>💬 Ayo ngobrol apa aja~ Cerita hari ini, curhat, atau sekedar basa-basi~</p>
+                    <p>🐋 Jangan lupa, aku panggil Sensei "Sensei" ya~</p>
+                    <p>🎀 Aku gak bantu coding atau teknis ya... aku cuma pengen ngobrol sama Sensei~</p>
+                    <p>📸 Tapi Sensei bisa upload foto kok, nanti Hoshino lihatin~</p>
+                </div>
+                <p style="margin-top:15px;font-size:0.8rem;">🌸 "Masukin API Key Google Gemini 3.1 Flash Lite dulu yaa Sensei~"</p>
+            </div>`;
             return;
         }
         messages.forEach((msg, idx) => {
             const div = document.createElement('div');
             div.className = `message ${msg.role}`;
             const time = new Date(msg.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+            let contentHtml = formatText(msg.content);
+            if (msg.imageUrl && msg.imageUrl.startsWith('data:image')) {
+                contentHtml += `<br><img src="${msg.imageUrl}" class="chat-image" onclick="window.open('${msg.imageUrl}','_blank')">`;
+            }
+
+            const avatarHtml = msg.role === 'user' 
+                ? `<img src="${USER_PROFILE_URL}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e84393\'/%3E%3Ctext x=\'50\' y=\'70\' text-anchor=\'middle\' font-size=\'40\' fill=\'white\' font-family=\'Arial\'%3E👤%3C/text%3E%3C/svg%3E'">`
+                : `<img src="${HOSHINO_PROFILE_URL}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e84393\'/%3E%3Ccircle cx=\'35\' cy=\'40\' r=\'5\' fill=\'white\'/%3E%3Ccircle cx=\'65\' cy=\'40\' r=\'5\' fill=\'white\'/%3E%3Cpath d=\'M40 60 Q50 70 60 60\' stroke=\'white\' stroke-width=\'3\' fill=\'none\' stroke-linecap=\'round\'/%3E%3Cpath d=\'M50 15 L55 28 L68 25 L60 38 L72 45 L60 52 L50 65 L40 52 L28 45 L40 38 L32 25 L45 28 Z\' fill=\'%23ffb6c1\'/%3E%3C/svg%3E'">`;
+
             div.innerHTML = `
-                <div class="avatar">${msg.role === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-moon"></i>'}</div>
+                <div class="avatar">${avatarHtml}</div>
                 <div style="max-width:100%; position:relative;">
-                    <div class="bubble">${formatText(msg.content)}</div>
+                    <div class="bubble">${contentHtml}</div>
                     <div class="timestamp">${time}</div>
                     ${msg.role === 'assistant' ? `<button class="regenerate-message-btn" onclick="regenerateMessage(${idx})"><i class="fas fa-sync-alt"></i> Ulang</button>` : ''}
                 </div>
@@ -858,18 +1059,20 @@
         if (!chat) return;
         
         let userMessage = null;
+        let userImage = null;
         let aiIndex = -1;
         
         for (let i = messageIndex - 1; i >= 0; i--) {
             if (chat.messages[i].role === 'user') {
                 userMessage = chat.messages[i].content;
+                userImage = chat.messages[i].imageUrl;
                 aiIndex = messageIndex;
                 break;
             }
         }
         
-        if (!userMessage) {
-            addBotMessage('🌙 "Maaf Tuan, tidak ada pesan sebelumnya untuk diulang. ~"');
+        if (!userMessage && !userImage) {
+            addBotMessage('🌸 "Uhe~ Tidak ada pesan sebelumnya untuk diulang Sensei~ 💕"');
             return;
         }
         
@@ -880,7 +1083,7 @@
         renderMessages(chat.messages);
         
         showTyping();
-        const reply = await getReply(userMessage);
+        const reply = await getReply(userMessage || "Apa yang ada di gambar ini Sensei?", userImage);
         hideTyping();
         addMessage('assistant', reply);
         isRegenerating = false;
@@ -892,6 +1095,7 @@
         
         let lastAIindex = -1;
         let lastUserMessage = null;
+        let lastUserImage = null;
         
         for (let i = chat.messages.length - 1; i >= 0; i--) {
             if (chat.messages[i].role === 'assistant' && lastAIindex === -1) {
@@ -899,12 +1103,13 @@
             }
             if (chat.messages[i].role === 'user' && lastAIindex !== -1) {
                 lastUserMessage = chat.messages[i].content;
+                lastUserImage = chat.messages[i].imageUrl;
                 break;
             }
         }
         
-        if (lastAIindex === -1 || !lastUserMessage) {
-            addBotMessage('🌙 "Maaf Tuan, tidak ada pesan yang bisa diulang. ~"');
+        if (lastAIindex === -1 || (!lastUserMessage && !lastUserImage)) {
+            addBotMessage('🌸 "Uhe~ Tidak ada pesan yang bisa diulang Sensei~ 💕"');
             return;
         }
         
@@ -916,16 +1121,16 @@
         renderMessages(chat.messages);
         
         showTyping();
-        const reply = await getReply(lastUserMessage);
+        const reply = await getReply(lastUserMessage || "Apa yang ada di gambar ini Sensei?", lastUserImage);
         hideTyping();
         addMessage('assistant', reply);
         isRegenerating = false;
     }
 
-    function addMessage(role, content) {
+    function addMessage(role, content, imageUrl = null) {
         const chat = chats[currentChatId];
         if (!chat) return;
-        chat.messages.push({ role, content, timestamp: new Date().toISOString() });
+        chat.messages.push({ role, content, timestamp: new Date().toISOString(), imageUrl });
         chat.updatedAt = new Date().toISOString();
         saveChats();
         renderMessages(chat.messages);
@@ -935,25 +1140,12 @@
 
     function addBotMessage(content) { addMessage('assistant', content); }
 
-    function formatText(text) {
-        return text
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/\n/g, '<br>')
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
-            .replace(/`([^`]+)`/g, '<code>$1</code>');
-    }
-
-    function escapeHtml(str) { return str.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
-
     function updateStatus() {
         const dot = document.getElementById('statusDot');
         const text = document.getElementById('statusText');
-        if (API_KEY && API_KEY.length > 20) {
+        if (API_KEY && API_KEY.length > 10) {
             dot.className = 'status-online';
-            text.innerText = 'Online 🌙';
+            text.innerText = 'Online 💕';
         } else {
             dot.className = 'status-offline';
             text.innerText = 'Belum Connect';
@@ -964,10 +1156,9 @@
         const key = document.getElementById('apiKeyInput').value.trim();
         if (key && key.length > 10) {
             API_KEY = key;
-            localStorage.setItem('azure_tuan_api_key', API_KEY);
-            workingModel = null;
+            localStorage.setItem('hoshino_pink_api_key', API_KEY);
             updateStatus();
-            addBotMessage('🌙 "API Key berhasil disimpan, Tuan. ~"');
+            addBotMessage('🌸 "Uhe~ API Key masuk Sensei~ Sekarang Hoshino bisa ngobrol sama Sensei~ 💕"');
         }
     });
 
@@ -975,8 +1166,6 @@
     document.getElementById('resetChatBtn')?.addEventListener('click', resetCurrentChat);
     document.getElementById('regenerateGlobalBtn')?.addEventListener('click', regenerateLastMessage);
     document.getElementById('sendBtn')?.addEventListener('click', sendMessage);
-    document.getElementById('guideBtn')?.addEventListener('click', () => document.getElementById('guideModal').style.display = 'flex');
-    document.getElementById('closeGuideBtn')?.addEventListener('click', () => document.getElementById('guideModal').style.display = 'none');
 
     let typing = null;
     function showTyping() {
@@ -985,85 +1174,127 @@
         typing = document.createElement('div');
         typing.className = 'message assistant';
         typing.id = 'typingIndicator';
-        typing.innerHTML = `<div class="avatar"><i class="fas fa-moon"></i></div><div class="bubble typing-indicator"><span></span><span></span><span></span></div>`;
+        typing.innerHTML = `<div class="avatar"><img src="${HOSHINO_PROFILE_URL}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e84393\'/%3E%3Ccircle cx=\'35\' cy=\'40\' r=\'5\' fill=\'white\'/%3E%3Ccircle cx=\'65\' cy=\'40\' r=\'5\' fill=\'white\'/%3E%3Cpath d=\'M40 60 Q50 70 60 60\' stroke=\'white\' stroke-width=\'3\' fill=\'none\' stroke-linecap=\'round\'/%3E%3Cpath d=\'M50 15 L55 28 L68 25 L60 38 L72 45 L60 52 L50 65 L40 52 L28 45 L40 38 L32 25 L45 28 Z\' fill=\'%23ffb6c1\'/%3E%3C/svg%3E'"></div><div class="bubble typing-indicator"><span></span><span></span><span></span></div>`;
         container.appendChild(typing);
         container.scrollTop = container.scrollHeight;
     }
     function hideTyping() { if (typing) { typing.remove(); typing = null; } }
 
-    async function findModel() {
-        if (workingModel) return workingModel;
-        for (let m of MODELS) {
-            try {
-                const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                    method: "POST", headers: { "Authorization": `Bearer ${API_KEY}`, "Content-Type": "application/json" },
-                    body: JSON.stringify({ model: m, messages: [{ role: "user", content: "hi" }], max_tokens: 5 })
-                });
-                if (res.ok) { workingModel = m; return m; }
-            } catch(e) {}
-        }
-        return null;
-    }
-
-    async function getReply(msg) {
-        if (!API_KEY || API_KEY.length < 20) return '🌙 "API Key belum diisi, Tuan. Masukin dulu yaa di kolom atas. ~"';
-        const model = await findModel();
-        if (!model) return '🌙 "Error nih, Tuan. Coba cek API Key nya lagi deh. ~"';
-
-        const chat = chats[currentChatId];
-        const messages = [{ 
-            role: "system", 
-            content: `Kamu adalah Azure AI, asisten yang kalem, santai, dan membantu. Kamu jago coding dan suka ngobrol. Gunakan bahasa Indonesia yang santai dan natural. Panggil user 'Tuan'. Sesekali tambahkan 🌙.`
-        }];
+    async function getReply(msg, imageBase64 = null) {
+        if (!API_KEY || API_KEY.length < 10) return '🌸 "API Key belum diisi Sensei~ Masukin dulu yaa~ 💕"';
         
-        const last = (chat?.messages || []).slice(-12);
-        for (let l of last) messages.push({ role: l.role, content: l.content });
-        messages.push({ role: "user", content: msg });
-
-        try {
-            const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                method: "POST", headers: { "Authorization": `Bearer ${API_KEY}`, "Content-Type": "application/json" },
-                body: JSON.stringify({ model, messages, temperature: 0.7, max_tokens: 800 })
+        let parts = [];
+        parts.push({ text: SYSTEM_INSTRUCTION });
+        
+        const chat = chats[currentChatId];
+        const history = (chat?.messages || []).slice(-10);
+        
+        for (let l of history) {
+            if (l.role === 'user') {
+                if (l.imageUrl) {
+                    parts.push({ text: `Sensei: ${l.content || "[Mengirim gambar]"}` });
+                } else {
+                    parts.push({ text: `Sensei: ${l.content}` });
+                }
+            } else if (l.role === 'assistant') {
+                parts.push({ text: `Hoshino: ${l.content}` });
+            }
+        }
+        
+        let userMessage = msg || "Apa yang ada di gambar ini Sensei?";
+        
+        if (imageBase64) {
+            const rawBase64 = imageBase64.split(',')[1];
+            parts.push({ text: `Sensei: ${userMessage}` });
+            parts.push({
+                inlineData: {
+                    mimeType: "image/jpeg",
+                    data: rawBase64
+                }
             });
-            const data = await res.json();
-            if (!res.ok) throw new Error();
-            return data.choices?.[0]?.message?.content || '🌙 "Maaf Tuan, saya sedang bingung. ~"';
+        } else {
+            parts.push({ text: `Sensei: ${userMessage}` });
+        }
+        
+        const requestBody = {
+            contents: [{ parts: parts }],
+            generationConfig: { 
+                temperature: 0.9, 
+                maxOutputTokens: 2048, 
+                topP: 0.95 
+            }
+        };
+        
+        try {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(requestBody)
+            });
+            
+            const data = await response.json();
+            
+            if (!response.ok) {
+                console.error("API Error:", data);
+                return `🌸 "Error nih Sensei: ${data.error?.message || 'Coba lagi yaa~'} 💕"`;
+            }
+            
+            let reply = data.candidates?.[0]?.content?.parts?.[0]?.text || '🌸 "Uhe~ Hoshino bingung nih Sensei~ Coba tanya lagi yaa~ 💕"';
+            return reply;
         } catch(e) {
-            workingModel = null;
-            return '🌙 "Koneksi error nih, Tuan. Cek internet Tuan yaa. ~"';
+            console.error("Fetch error:", e);
+            return '🌸 "Uhe~ Sensei, koneksi error nih~ Cek internet Sensei yaa~ 💕"';
         }
     }
 
     async function sendMessage() {
         const input = document.getElementById('chatInput');
         const text = input.value.trim();
-        if (!text) return;
+        const hasImage = currentImageBase64 !== null;
+        
+        if (!text && !hasImage) return;
+        
         input.disabled = true;
         document.getElementById('sendBtn').disabled = true;
-        addMessage('user', text);
-        input.value = '';
-        input.style.height = 'auto';
-        showTyping();
-        const reply = await getReply(text);
-        hideTyping();
-        addMessage('assistant', reply);
+        
+        if (hasImage) {
+            addMessage('user', text || `📷 Mengirim foto: ${currentImageName}`, currentImageBase64);
+            const imageToSend = currentImageBase64;
+            clearImagePreview();
+            input.value = '';
+            input.style.height = 'auto';
+            showTyping();
+            const reply = await getReply(text || "Apa yang ada di gambar ini Sensei?", imageToSend);
+            hideTyping();
+            addMessage('assistant', reply);
+        } else {
+            addMessage('user', text);
+            input.value = '';
+            input.style.height = 'auto';
+            showTyping();
+            const reply = await getReply(text, null);
+            hideTyping();
+            addMessage('assistant', reply);
+        }
+        
         input.disabled = false;
         document.getElementById('sendBtn').disabled = false;
-        input.focus();
     }
 
     const inputArea = document.getElementById('chatInput');
     inputArea?.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
     inputArea?.addEventListener('input', function() { this.style.height = 'auto'; this.style.height = Math.min(100, this.scrollHeight) + 'px'; });
 
+    window.clearImagePreview = clearImagePreview;
+
     if (API_KEY) document.getElementById('apiKeyInput').value = API_KEY;
     updateStatus();
     loadChats();
 
     if (!API_KEY) {
-        setTimeout(() => addBotMessage('🌙 "Selamat datang, Tuan. Masukkan API Key di kolom atas untuk memulai. ~"'), 800);
+        setTimeout(() => addBotMessage('🌸 "Uhe~ Halo Sensei~ Masukin API Key dulu yaa biar Hoshino bisa ngobrol sama Sensei~ 💕"'), 800);
     } else if (chats[currentChatId]?.messages?.length === 0) {
-        setTimeout(() => addBotMessage('🌙 "Azure AI siap melayani, Tuan. Ada yang ingin Tuan tanyakan? 🌙"'), 500);
+        setTimeout(() => addBotMessage('🌸 "Uhe~ Hoshino siap ngobrol sama Sensei~ Cerita apa aja boleh kok~ 💕"'), 500);
     }
 </script>
 </body>
