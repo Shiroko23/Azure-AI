@@ -345,23 +345,7 @@
             border-radius: 10px;
         }
 
-        /* ========== GARIS PEMISAH ANTAR CHAT ========== */
-        .message:not(:last-child)::after {
-            content: '';
-            display: block;
-            position: absolute;
-            bottom: -8px;
-            left: 46px;
-            right: 0;
-            height: 1px;
-            background: rgba(232, 67, 147, 0.15);
-        }
-
-        .message.user:not(:last-child)::after {
-            left: 0;
-            right: 46px;
-        }
-
+        /* TANPA GARIS PEMISAH */
         .message {
             display: flex;
             align-items: flex-start;
@@ -734,11 +718,13 @@ Kepribadian:
 
 BACA FOTO:
 - Kalau Sensei upload foto, lihat dan jelasin dengan gaya manis.
+- Contoh: "Uhe~ Wah fotonya bagus Sensei! Itu kelihatannya..."
 
 CONTOH RESPON:
 - "Uhe~ Halo Sensei~ Lagi ngapain? Hoshino baru bangun tidur nih~ 💕"
 - "Aduh Sensei cerita gitu... Hoshino jadi ikut sedih deh... 😢"
-- "Wah seru banget Sensei! Cerita lagi dong~ 💕"`;
+- "Wah seru banget Sensei! Cerita lagi dong~ 💕"
+- "Hoshino mau tidur lagi nih Sensei... tapi kalau Sensei ngajak ngobrol, Hoshino bangun kok~ 😴"`;
 
     // Efek kelopak bunga
     function createPetal() {
@@ -986,7 +972,7 @@ CONTOH RESPON:
                     <h4>💕 Halo Sensei~</h4>
                     <p>🌸 Aku Hoshino~ Aku suka banget ngobrol santai sama Sensei~</p>
                     <p>😴 Aku juga suka tidur siang... tapi kalau Sensei ngajak ngobrol, aku bakal bangun kok~</p>
-                    <p>💬 Ayo ngobrol apa aja~ Cerita hari ini, curhat, atau sekedar basa-basi~</p>
+                    <p>💬 Ayo ngobrol apa aja~ Cerita hari ini, curhat, ou sekedar basa-basi~</p>
                     <p>🐋 Jangan lupa, aku panggil Sensei "Sensei" ya~</p>
                     <p>📸 Tapi Sensei bisa upload foto kok, nanti Hoshino lihatin~</p>
                 </div>
