@@ -1,8 +1,9 @@
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Hoshino AI - Lobby</title>
+    <title>WilteChat - Loading</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -18,392 +19,357 @@
         }
 
         body {
-            background: #0e0c12;
+            background: #0a0a0a;
             font-family: 'Inter', system-ui, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
         }
 
-        .app-container {
+        .container {
             width: 100%;
+            max-width: 420px;
             height: 100dvh;
-            max-width: 480px;
-            background: #0e0c12;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        /* --- BINTANG JATUH PINK --- */
+        .star-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .star-particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ff88bb;
+            border-radius: 50%;
+            opacity: 0;
+            animation: starFloat 2.5s ease-in-out infinite;
+            box-shadow: 0 0 4px #ff88bb;
+        }
+
+        @keyframes starFloat {
+            0% { opacity: 0; transform: translateY(0) scale(0.5); }
+            50% { opacity: 1; transform: translateY(-40px) scale(1); }
+            100% { opacity: 0; transform: translateY(-80px) scale(0.5); }
+        }
+
+        /* --- LOGO & JUDUL --- */
+        .logo-wrapper {
+            text-align: center;
+            z-index: 1;
+            margin-bottom: 10px;
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff66aa, #cc3388);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            box-shadow: 0 0 40px rgba(255, 102, 170, 0.3);
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 40px rgba(255, 102, 170, 0.3); }
+            50% { box-shadow: 0 0 60px rgba(255, 102, 170, 0.6); }
+        }
+
+        .logo-icon i {
+            font-size: 36px;
+            color: white;
+        }
+
+        .logo-title {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff88bb, #ff66aa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-sub {
+            font-size: 13px;
+            color: #aa6688;
+            margin-top: 4px;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        /* --- LOADING BAR --- */
+        .loading-wrapper {
+            width: 100%;
+            max-width: 280px;
+            z-index: 1;
+            margin-top: 20px;
+        }
+
+        .loading-bar-track {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
             overflow: hidden;
             position: relative;
         }
 
-        /* --- HEADER --- */
-        .header {
-            background: #1e1420;
-            padding: 12px 16px 10px;
-            border-bottom: 1px solid #2a1a2a;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-shrink: 0;
-        }
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .header-left i {
-            font-size: 18px;
-            color: #ff88bb;
-            cursor: pointer;
-        }
-        .header-left h1 {
-            color: #fff;
-            font-size: 17px;
-            font-weight: 700;
-        }
-        .header-left h1 span {
-            color: #ff88bb;
-        }
-        .header-right i {
-            color: #d0b0c0;
-            font-size: 16px;
-            margin-left: 12px;
-            cursor: pointer;
-        }
-
-        /* --- SEARCH BAR --- */
-        .search-bar {
-            background: #1a121a;
-            padding: 6px 12px;
-            border-bottom: 1px solid #2a1a2a;
-            flex-shrink: 0;
-        }
-        .search-bar .search-box {
-            display: flex;
-            align-items: center;
-            background: #0a0a0a;
-            border-radius: 30px;
-            padding: 4px 12px;
-            border: 1px solid #2a1a2a;
-        }
-        .search-box i {
-            color: #777;
-            font-size: 13px;
-            margin-right: 8px;
-        }
-        .search-box input {
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #d0b0c0;
-            font-size: 13px;
-            width: 100%;
-            padding: 6px 0;
-        }
-        .search-box input::placeholder {
-            color: #555;
-        }
-
-        /* --- CONTACT LIST --- */
-        .contact-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 4px 0;
-            background: #0e0c12;
-            -webkit-overflow-scrolling: touch;
-        }
-        .contact-list::-webkit-scrollbar {
-            width: 3px;
-        }
-        .contact-list::-webkit-scrollbar-thumb {
-            background: #ff88bb;
-            border-radius: 10px;
-        }
-
-        /* --- CONTACT ITEM --- */
-        .contact-item {
-            display: flex;
-            align-items: center;
-            padding: 10px 14px;
-            border-bottom: 1px solid #1a121a;
-            cursor: pointer;
-            transition: all 0.1s ease;
-            text-decoration: none;
-            color: inherit;
-            min-height: 60px;
-        }
-        .contact-item:active {
-            background: #1a121a;
-            transform: scale(0.98);
-        }
-
-        .contact-avatar {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            margin-right: 12px;
-            overflow: hidden;
-            border: 1px solid #3a1a3a;
-        }
-        .contact-avatar img {
-            width: 100%;
+        .loading-bar-fill {
+            width: 0%;
             height: 100%;
-            object-fit: cover;
-        }
-        .contact-avatar i {
-            color: #ff88bb;
-            font-size: 20px;
-        }
-
-        .contact-info {
-            flex: 1;
-            min-width: 0;
-        }
-        .contact-name {
-            color: #fff;
-            font-size: 15px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        .contact-name .badge {
-            font-size: 9px;
-            font-weight: 700;
-            padding: 1px 8px;
-            border-radius: 30px;
-        }
-        .badge.online {
-            background: #88ffaa;
-            color: #0a0a0a;
-        }
-        .badge.offline {
-            background: #666;
-            color: #ddd;
-        }
-        .contact-message {
-            color: #a08890;
-            font-size: 12px;
-            margin-top: 1px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .contact-time {
-            color: #777;
-            font-size: 10px;
-            text-align: right;
-            flex-shrink: 0;
-            margin-left: 8px;
+            background: linear-gradient(90deg, #ff66aa, #ff88bb, #ff66aa);
+            border-radius: 10px;
+            animation: loadingFill 2.5s ease-in-out forwards;
+            box-shadow: 0 0 12px rgba(255, 102, 170, 0.5);
         }
 
-        /* --- WARNA KHUSUS --- */
-        .contact-item.hoshino .contact-avatar {
-            border-color: #e84393;
-        }
-        .contact-item.hoshino .contact-name {
-            color: #f06292;
-        }
-        .contact-item.azure .contact-avatar {
-            border-color: #8866ff;
-        }
-        .contact-item.suna .contact-avatar {
-            border-color: #ff88bb;
-        }
-        .contact-item.arona .contact-avatar {
-            border-color: #ffdd44;
+        @keyframes loadingFill {
+            0% { width: 0%; }
+            20% { width: 25%; }
+            40% { width: 50%; }
+            60% { width: 70%; }
+            80% { width: 88%; }
+            95% { width: 95%; }
+            100% { width: 100%; }
         }
 
-        /* --- FOOTER --- */
-        .footer {
-            background: #1e1420;
-            padding: 8px 14px;
-            border-top: 1px solid #2a1a2a;
+        .loading-text {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            flex-shrink: 0;
-        }
-        .footer span {
-            color: #777;
-            font-size: 11px;
-        }
-        .footer i {
-            color: #ff88bb;
-            font-size: 14px;
-            cursor: pointer;
-            margin-left: 12px;
+            margin-top: 10px;
+            color: #885577;
+            font-size: 12px;
+            font-weight: 500;
         }
 
-        /* --- RESPONSIVE UNTUK HP KECIL --- */
-        @media (max-width: 380px) {
-            .header-left h1 {
-                font-size: 15px;
+        .loading-text .dots {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .loading-text .dots span {
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            background: #ff66aa;
+            border-radius: 50%;
+            animation: dotBounce 1.4s infinite;
+        }
+
+        .loading-text .dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loading-text .dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes dotBounce {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-4px); opacity: 1; }
+        }
+
+        /* --- TOMBOL BUKA --- */
+        .btn-wrapper {
+            z-index: 1;
+            margin-top: 28px;
+            opacity: 0;
+            animation: fadeInBtn 0.5s ease forwards;
+            animation-delay: 2.6s;
+        }
+
+        @keyframes fadeInBtn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-buka {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 40px;
+            background: linear-gradient(135deg, #ff66aa, #cc3388);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 30px rgba(255, 102, 170, 0.25);
+            text-decoration: none;
+            font-family: 'Inter', system-ui, sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-buka i {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-buka:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 40px rgba(255, 102, 170, 0.5);
+        }
+
+        .btn-buka:hover i {
+            transform: translateX(4px);
+        }
+
+        .btn-buka:active {
+            transform: scale(0.96);
+        }
+
+        /* --- WATERMARK --- */
+        .watermark {
+            position: absolute;
+            bottom: 24px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #332233;
+            font-size: 11px;
+            z-index: 1;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        .watermark span {
+            color: #ff66aa;
+            font-weight: 500;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 400px) {
+            .logo-title {
+                font-size: 22px;
             }
-            .contact-item {
-                padding: 8px 10px;
-                min-height: 50px;
+            .logo-icon {
+                width: 64px;
+                height: 64px;
             }
-            .contact-avatar {
-                width: 38px;
-                height: 38px;
-                margin-right: 10px;
+            .logo-icon i {
+                font-size: 28px;
             }
-            .contact-name {
-                font-size: 13px;
-            }
-            .contact-message {
-                font-size: 11px;
-            }
-            .contact-time {
-                font-size: 9px;
-            }
-            .footer span {
-                font-size: 10px;
+            .btn-buka {
+                padding: 12px 32px;
+                font-size: 14px;
             }
         }
 
         @media (min-width: 481px) {
-            .app-container {
+            .container {
                 height: 90vh;
+                max-width: 400px;
                 border-radius: 24px;
-                box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-                border: 1px solid #2a1a2a;
+                background: rgba(10, 10, 10, 0.85);
+                backdrop-filter: blur(12px);
+                border: 1px solid rgba(255, 102, 170, 0.15);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
             }
         }
     </style>
 </head>
 <body>
 
-<div class="app-container">
+<!-- BINTANG DI BELAKANG -->
+<div class="star-bg" id="starBg"></div>
 
-    <!-- HEADER -->
-    <div class="header">
-        <div class="header-left">
-            <i class="fas fa-chevron-left"></i>
-            <h1>Wilte<span>Chat</span></h1>
+<div class="container">
+
+    <!-- LOGO & JUDUL -->
+    <div class="logo-wrapper">
+        <div class="logo-icon">
+            <i class="fas fa-comment-dots"></i>
         </div>
-        <div class="header-right">
-            <i class="fas fa-camera"></i>
-            <i class="fas fa-ellipsis-v"></i>
-        </div>
+        <h1 class="logo-title">WilteChat</h1>
+        <p class="logo-sub">~ siap untukmu ~ ✨</p>
     </div>
 
-    <!-- SEARCH BAR -->
-    <div class="search-bar">
-        <div class="search-box">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="Cari chat atau kontak..." id="searchInput" onkeyup="filterContacts()">
+    <!-- LOADING BAR -->
+    <div class="loading-wrapper">
+        <div class="loading-bar-track">
+            <div class="loading-bar-fill"></div>
         </div>
-    </div>
-
-    <!-- CONTACT LIST -->
-    <div class="contact-list" id="contactList">
-
-        <!-- HOSHINO -->
-        <a href="myai.html" class="contact-item hoshino">
-            <div class="contact-avatar">
-                <img src="hoshino3.png" alt="Hoshino" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-heart\'></i>'">
-            </div>
-            <div class="contact-info">
-                <div class="contact-name">
-                    🌸 Hoshino
-                    <span class="badge online">Online</span>
-                </div>
-                <div class="contact-message">Uhe~ Halo Sensei! 💕</div>
-            </div>
-            <div class="contact-time">Sekarang</div>
-        </a>
-
-        <!-- AZURE -->
-        <a href="myai2.html" class="contact-item azure">
-            <div class="contact-avatar">
-                <img src="azure.png" alt="Azure" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-moon\'></i>'">
-            </div>
-            <div class="contact-info">
-                <div class="contact-name">
-                    🌙 Azure
-                    <span class="badge online">Online</span>
-                </div>
-                <div class="contact-message">Ada yang bisa saya bantu? 🌙</div>
-            </div>
-            <div class="contact-time">Sekarang</div>
-        </a>
-
-        <!-- SUNA -->
-        <a href="suna%20ai.html" class="contact-item suna">
-            <div class="contact-avatar">
-                <img src="suna.png" alt="Suna" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-cat\'></i>'">
-            </div>
-            <div class="contact-info">
-                <div class="contact-name">
-                    🐱 Suna
-                    <span class="badge offline">Offline</span>
-                </div>
-                <div class="contact-message">... Suna lagi tidur...</div>
-            </div>
-            <div class="contact-time">5 menit lalu</div>
-        </a>
-
-        <!-- ARONA -->
-        <a href="myarona.html" class="contact-item arona">
-            <div class="contact-avatar">
-                <img src="arona.png" alt="Arona" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-star\'></i>'">
-            </div>
-            <div class="contact-info">
-                <div class="contact-name">
-                    ⭐ Arona
-                    <span class="badge offline">Offline</span>
-                </div>
-                <div class="contact-message">Halo~ Sensei! 👋</div>
-            </div>
-            <div class="contact-time">2 jam lalu</div>
-        </a>
-
-    </div>
-
-    <!-- FOOTER -->
-    <div class="footer">
-        <span><i class="fas fa-lock" style="margin-right: 6px;"></i> End-to-end encrypted</span>
-        <div>
-            <i class="fas fa-chart-simple"></i>
-            <i class="fas fa-cog"></i>
+        <div class="loading-text">
+            <span>Memuat WilteChat...</span>
+            <span class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
         </div>
     </div>
 
+    <!-- TOMBOL BUKA -->
+    <div class="btn-wrapper">
+        <a href="mywilte.html" class="btn-buka" id="btnBuka">
+            <span>Buka Wilte!!</span>
+            <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+
+    <!-- WATERMARK -->
+    <div class="watermark">
+        <span>✦</span> WilteChat <span>✦</span>
+    </div>
 </div>
 
 <script>
-    function filterContacts() {
-        const input = document.getElementById('searchInput');
-        const filter = input.value.toLowerCase();
-        const contacts = document.querySelectorAll('.contact-item');
-
-        contacts.forEach(item => {
-            const name = item.querySelector('.contact-name')?.innerText?.toLowerCase() || '';
-            const message = item.querySelector('.contact-message')?.innerText?.toLowerCase() || '';
-            if (name.includes(filter) || message.includes(filter)) {
-                item.style.display = 'flex';
-            } else {
-                item.style.display = 'none';
-            }
-        });
+    // --- BINTANG JATUH ---
+    function createStars() {
+        const container = document.getElementById('starBg');
+        for (let i = 0; i < 35; i++) {
+            const star = document.createElement('div');
+            star.className = 'star-particle';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 2.5 + 's';
+            star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            star.style.width = (Math.random() * 3 + 1) + 'px';
+            star.style.height = star.style.width;
+            container.appendChild(star);
+        }
     }
+    createStars();
 
-    // Efek klik & langsung pindah
-    document.querySelectorAll('.contact-item').forEach(el => {
-        el.addEventListener('click', function(e) {
-            e.preventDefault();
-            this.style.opacity = '0.5';
-            setTimeout(() => {
-                window.location.href = this.getAttribute('href');
-            }, 150);
-        });
+    // --- EFEK KLIK TOMBOL ---
+    document.getElementById('btnBuka').addEventListener('click', function(e) {
+        e.preventDefault();
+        this.style.transform = 'scale(0.92)';
+        this.style.opacity = '0.7';
+        setTimeout(() => {
+            window.location.href = this.getAttribute('href');
+        }, 200);
+    });
+
+    // --- PASTI TOMBOL MUNCUL ---
+    window.addEventListener('load', function() {
+        const btnWrapper = document.querySelector('.btn-wrapper');
+        if (btnWrapper) {
+            btnWrapper.style.animation = 'fadeInBtn 0.5s ease forwards';
+        }
     });
 </script>
 
