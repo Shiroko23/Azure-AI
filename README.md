@@ -1,7 +1,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Hoshino AI - Lobby</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -11,51 +11,54 @@
             padding: 0;
             box-sizing: border-box;
         }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
-            background: linear-gradient(135deg, #0a0a0a, #1a0a1a);
+            background: #0e0c12;
             font-family: 'Inter', system-ui, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 16px;
         }
 
         .app-container {
-            max-width: 450px;
             width: 100%;
-            height: 780px;
+            height: 100dvh;
+            max-width: 480px;
             background: #0e0c12;
-            border-radius: 32px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-            overflow: hidden;
             display: flex;
             flex-direction: column;
-            border: 1px solid #2a1a2a;
+            overflow: hidden;
+            position: relative;
         }
 
+        /* --- HEADER --- */
         .header {
             background: #1e1420;
-            padding: 16px 20px 12px;
+            padding: 12px 16px 10px;
             border-bottom: 1px solid #2a1a2a;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-shrink: 0;
         }
         .header-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
         .header-left i {
-            font-size: 20px;
+            font-size: 18px;
             color: #ff88bb;
             cursor: pointer;
         }
         .header-left h1 {
             color: #fff;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
         }
         .header-left h1 span {
@@ -63,35 +66,37 @@
         }
         .header-right i {
             color: #d0b0c0;
-            font-size: 18px;
-            margin-left: 16px;
+            font-size: 16px;
+            margin-left: 12px;
             cursor: pointer;
         }
 
+        /* --- SEARCH BAR --- */
         .search-bar {
             background: #1a121a;
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-bottom: 1px solid #2a1a2a;
+            flex-shrink: 0;
         }
         .search-bar .search-box {
             display: flex;
             align-items: center;
             background: #0a0a0a;
             border-radius: 30px;
-            padding: 6px 14px;
+            padding: 4px 12px;
             border: 1px solid #2a1a2a;
         }
         .search-box i {
             color: #777;
-            font-size: 14px;
-            margin-right: 10px;
+            font-size: 13px;
+            margin-right: 8px;
         }
         .search-box input {
             background: transparent;
             border: none;
             outline: none;
             color: #d0b0c0;
-            font-size: 14px;
+            font-size: 13px;
             width: 100%;
             padding: 6px 0;
         }
@@ -99,47 +104,48 @@
             color: #555;
         }
 
+        /* --- CONTACT LIST --- */
         .contact-list {
             flex: 1;
             overflow-y: auto;
-            padding: 8px 0;
+            padding: 4px 0;
             background: #0e0c12;
+            -webkit-overflow-scrolling: touch;
         }
         .contact-list::-webkit-scrollbar {
-            width: 4px;
+            width: 3px;
         }
         .contact-list::-webkit-scrollbar-thumb {
             background: #ff88bb;
             border-radius: 10px;
         }
 
+        /* --- CONTACT ITEM --- */
         .contact-item {
             display: flex;
             align-items: center;
-            padding: 12px 16px;
+            padding: 10px 14px;
             border-bottom: 1px solid #1a121a;
             cursor: pointer;
-            transition: all 0.15s ease;
+            transition: all 0.1s ease;
             text-decoration: none;
             color: inherit;
-        }
-        .contact-item:hover {
-            background: #1a121a;
+            min-height: 60px;
         }
         .contact-item:active {
+            background: #1a121a;
             transform: scale(0.98);
         }
 
         .contact-avatar {
-            width: 52px;
-            height: 52px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
             flex-shrink: 0;
-            margin-right: 14px;
+            margin-right: 12px;
             overflow: hidden;
             border: 1px solid #3a1a3a;
         }
@@ -150,6 +156,7 @@
         }
         .contact-avatar i {
             color: #ff88bb;
+            font-size: 20px;
         }
 
         .contact-info {
@@ -158,16 +165,15 @@
         }
         .contact-name {
             color: #fff;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            flex-wrap: wrap;
         }
         .contact-name .badge {
-            background: #ff88bb;
-            color: #0a0a0a;
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 700;
             padding: 1px 8px;
             border-radius: 30px;
@@ -182,23 +188,26 @@
         }
         .contact-message {
             color: #a08890;
-            font-size: 13px;
-            margin-top: 2px;
+            font-size: 12px;
+            margin-top: 1px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
         .contact-time {
             color: #777;
-            font-size: 11px;
+            font-size: 10px;
             text-align: right;
             flex-shrink: 0;
             margin-left: 8px;
         }
 
-        /* Warna khusus per karakter */
+        /* --- WARNA KHUSUS --- */
         .contact-item.hoshino .contact-avatar {
             border-color: #e84393;
+        }
+        .contact-item.hoshino .contact-name {
+            color: #f06292;
         }
         .contact-item.azure .contact-avatar {
             border-color: #8866ff;
@@ -210,29 +219,61 @@
             border-color: #ffdd44;
         }
 
+        /* --- FOOTER --- */
         .footer {
             background: #1e1420;
-            padding: 10px 16px;
+            padding: 8px 14px;
             border-top: 1px solid #2a1a2a;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-shrink: 0;
         }
         .footer span {
             color: #777;
-            font-size: 12px;
+            font-size: 11px;
         }
         .footer i {
             color: #ff88bb;
             font-size: 14px;
             cursor: pointer;
+            margin-left: 12px;
         }
 
-        @media (max-width: 480px) {
+        /* --- RESPONSIVE UNTUK HP KECIL --- */
+        @media (max-width: 380px) {
+            .header-left h1 {
+                font-size: 15px;
+            }
+            .contact-item {
+                padding: 8px 10px;
+                min-height: 50px;
+            }
+            .contact-avatar {
+                width: 38px;
+                height: 38px;
+                margin-right: 10px;
+            }
+            .contact-name {
+                font-size: 13px;
+            }
+            .contact-message {
+                font-size: 11px;
+            }
+            .contact-time {
+                font-size: 9px;
+            }
+            .footer span {
+                font-size: 10px;
+            }
+        }
+
+        @media (min-width: 481px) {
             .app-container {
-                height: 100vh;
-                border-radius: 0;
-                max-width: 100%;
+                height: 90vh;
+                border-radius: 24px;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+                border: 1px solid #2a1a2a;
             }
         }
     </style>
@@ -245,7 +286,7 @@
     <div class="header">
         <div class="header-left">
             <i class="fas fa-chevron-left"></i>
-            <h1>Hoshino <span>AI</span></h1>
+            <h1>Wilte<span>Chat</span></h1>
         </div>
         <div class="header-right">
             <i class="fas fa-camera"></i>
@@ -264,7 +305,7 @@
     <!-- CONTACT LIST -->
     <div class="contact-list" id="contactList">
 
-        <!-- ============ HOSHINO ============ -->
+        <!-- HOSHINO -->
         <a href="myai.html" class="contact-item hoshino">
             <div class="contact-avatar">
                 <img src="hoshino3.png" alt="Hoshino" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-heart\'></i>'">
@@ -274,12 +315,12 @@
                     🌸 Hoshino
                     <span class="badge online">Online</span>
                 </div>
-                <div class="contact-message">Uhe~ Halo Sensei! Ada yang bisa Hoshino bantu? 💕</div>
+                <div class="contact-message">Uhe~ Halo Sensei! 💕</div>
             </div>
             <div class="contact-time">Sekarang</div>
         </a>
 
-        <!-- ============ AZURE ============ -->
+        <!-- AZURE -->
         <a href="myai2.html" class="contact-item azure">
             <div class="contact-avatar">
                 <img src="azure.png" alt="Azure" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-moon\'></i>'">
@@ -294,7 +335,7 @@
             <div class="contact-time">Sekarang</div>
         </a>
 
-        <!-- ============ SUNA ============ -->
+        <!-- SUNA -->
         <a href="suna%20ai.html" class="contact-item suna">
             <div class="contact-avatar">
                 <img src="suna.png" alt="Suna" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-cat\'></i>'">
@@ -304,12 +345,12 @@
                     🐱 Suna
                     <span class="badge offline">Offline</span>
                 </div>
-                <div class="contact-message">... Suna lagi tidur... nanti aja ya...</div>
+                <div class="contact-message">... Suna lagi tidur...</div>
             </div>
             <div class="contact-time">5 menit lalu</div>
         </a>
 
-        <!-- ============ ARONA ============ -->
+        <!-- ARONA -->
         <a href="myarona.html" class="contact-item arona">
             <div class="contact-avatar">
                 <img src="arona.png" alt="Arona" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-star\'></i>'">
@@ -319,7 +360,7 @@
                     ⭐ Arona
                     <span class="badge offline">Offline</span>
                 </div>
-                <div class="contact-message">Halo~ Sensei! Ada yang bisa Arona bantu?</div>
+                <div class="contact-message">Halo~ Sensei! 👋</div>
             </div>
             <div class="contact-time">2 jam lalu</div>
         </a>
@@ -330,7 +371,7 @@
     <div class="footer">
         <span><i class="fas fa-lock" style="margin-right: 6px;"></i> End-to-end encrypted</span>
         <div>
-            <i class="fas fa-chart-simple" style="margin-right: 12px;"></i>
+            <i class="fas fa-chart-simple"></i>
             <i class="fas fa-cog"></i>
         </div>
     </div>
@@ -354,13 +395,12 @@
         });
     }
 
-    // Efek klik
+    // Efek klik & langsung pindah
     document.querySelectorAll('.contact-item').forEach(el => {
         el.addEventListener('click', function(e) {
             e.preventDefault();
-            this.style.opacity = '0.6';
+            this.style.opacity = '0.5';
             setTimeout(() => {
-                this.style.opacity = '1';
                 window.location.href = this.getAttribute('href');
             }, 150);
         });
